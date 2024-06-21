@@ -14,15 +14,19 @@ body {
 }
 
 h1 {
+  position: absolute;
+  top: 0px;
+  left: 2.5%;
+}
+
+h1,
+h2 {
   color: #e5c5ba;
   text-shadow:
     3px 3px 0 #431448,
     -3px 3px 0 #431448,
     -3px -3px 0 #431448,
     3px -3px 0 #431448;
-  position: absolute;
-  top: 0px;
-  left: 2.5%;
 }
 
 input {
@@ -31,14 +35,25 @@ input {
   font-size: large;
 }
 
+.button,
+input {
+  border-color: #431448;
+  border-width: 2.5px;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .header,
 .footer {
   color: #e5c5ba;
   text-shadow:
-    0px 1px 0 #431448,
+    1px 1px 0 #431448,
     -1px 1px 0 #431448,
     -1px -1px 0 #431448,
-    0px -1px 0 #431448;
+    1px -1px 0 #431448;
   position: absolute;
   background-color: hsl(311, 64%, 50%, .5);
   padding: 15px;
@@ -49,9 +64,27 @@ input {
   right: 0.5%;
 }
 
+.search {
+  width: 100%;
+}
+
+.playList,
+.searchResults {
+  width: 100%;
+  background-color: hsl(15, 45%, 81%, .75);
+}
+
 .footer {
   bottom: 0px;
   left: 0.5%;
+}
+
+.col {
+  width: 100%;
+}
+
+.col-6 {
+  width: 50%;
 }
 
 .header a,
@@ -64,9 +97,13 @@ input {
 
 .header a:hover,
 .footer a:hover {
-  background-color: hsl(15, 45%, 81%, .3);
+  background-color: hsl(15, 45%, 81%, .6);
   border-radius: 46%;
   padding: 5px 0px 5px;
+}
+
+.track p {
+  text-decoration: underline;
 }
 
 /*

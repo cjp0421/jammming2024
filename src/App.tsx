@@ -1,4 +1,3 @@
-
 import './App.css'
 
 function App() {
@@ -11,24 +10,44 @@ function App() {
         <h1>Jammming</h1>
       </header>
 
-      <main>
-        <div>
-          <input type='text' />
-          <br />
-          <button>Search by Title</button>
+      <main className='container'>
+        <div className='col'>
+
+          <div className='search'>
+            <input type='text' />
+            <br />
+            <button className='button'>Search by Title</button>
+          </div>
+
+        </div>
+        <div className='col-6'>
+          <div className='searchResults'>
+            <h2>Search Results</h2>
+            <div className='trackList'>
+              track list
+
+              <div className='track'><p>Track Title and Information</p></div>
+            </div>
+
+
+          </div>
         </div>
 
-        <div>
-          search results
-          - track list
-          - track
+
+        <div className='col-6'>
+          <div className='playList'>
+            <h2>Playlist</h2>
+            - playlist name text box / display
+            - tracklist
+            - track
+          </div>
         </div>
-        <div>
-          playlist
-          - playlist name text box / display
-          - tracklist
-          - track
-        </div>
+
+
+
+
+
+
 
 
       </main>
