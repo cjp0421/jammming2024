@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <header>
-        <div className='header'><a href='#'>Github</a>|<a href='#'>Portfolio</a>|<a href='#'>LinkedIn</a></div>
+        <div className='header'><a target="_blank" referrerPolicy="no-referrer" href='https://github.com/cjp0421/jammming2024'>Github</a>|<a href='#'>Portfolio</a>|<a target="_blank" referrerPolicy="no-referrer" href='https://www.linkedin.com/in/carol-joy-pedersen'>LinkedIn</a></div>
         <h1>Jammming</h1>
       </header>
 
@@ -42,14 +42,6 @@ function App() {
             - track
           </div>
         </div>
-
-
-
-
-
-
-
-
       </main>
 
       <footer>
