@@ -99,14 +99,6 @@ main {
   border-width: 2.5px;
 }
 
-.col {
-  width: 100%;
-}
-
-.col-6 {
-  width: 50%;
-}
-
 .footer {
   bottom: 0px;
   left: 0.5%;
