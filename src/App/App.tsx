@@ -1,13 +1,14 @@
-import './App.css'
+
+import './App.module.css'
 
 function App() {
 
 
   return (
-    <>
+    <div className="App">
       <header>
         <div className='header'><a target="_blank" referrerPolicy="no-referrer" href='https://github.com/cjp0421/jammming2024'>Github</a>|<a href='#'>Portfolio</a>|<a target="_blank" referrerPolicy="no-referrer" href='https://www.linkedin.com/in/carol-joy-pedersen'>LinkedIn</a></div>
-        <h1>Jammming</h1>
+        <h1> Ja<span className="highlight">mmm</span>ing</h1>
       </header>
 
       <main className='container'>
@@ -46,11 +47,10 @@ function App() {
 
       <footer>
         <div className='footer'>
-          This will go to GitHub ReadMe
-          <a href='#'>About</a>
+          <a target="_blank" referrerPolicy="no-referrer" href='https://github.com/cjp0421/jammming2024/blob/main/README.md'>About</a>
         </div>
       </footer>
-    </>
+    </div>
   )
 }
 
