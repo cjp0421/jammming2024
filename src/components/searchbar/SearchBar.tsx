@@ -1,6 +1,8 @@
+import styles from "./Searchbar.module.css"
+
 function SearchBar() {
     return (
-        <div className="SearchBar">
+        <div className={styles.SearchBar}>
             <div className='search'>
                 <input type='text' />
                 <br />
@@ -11,7 +13,7 @@ function SearchBar() {
                 placeholder="Enter A Song, Album, or Artist"
             />
 
-            <button className="SearchButton" >
+            <button className={styles.SearchButton} >
                 SEARCH
             </button>
 
