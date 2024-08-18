@@ -1,4 +1,4 @@
-import './App.module.css'
+import styles from './App.module.css'
 
 function App() {
 
@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <header className='header'>
         <div className='row'>
-          <h1 className='col-5'> Ja<span className="highlight">mmm</span>ing</h1>
+          <h1 className='col-5'> Ja<span className={styles.highlight}>mmm</span>ing</h1>
           <div className='col-7 text-end'>
             <a target="_blank" referrerPolicy="no-referrer"
               href='https://github.com/cjp0421/jammming2024'>

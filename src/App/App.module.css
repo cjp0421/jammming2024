@@ -45,9 +45,9 @@ h1 {
   letter-spacing: .2rem;
 }
 
-/* h1 .highlight {
-  color: #6c41ec;
-} */
+h1 .highlight {
+  color: #3dc091;
+}
 
 .App-playlist {
   display: flex;
