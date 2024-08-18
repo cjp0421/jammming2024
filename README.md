@@ -1,4 +1,8 @@
-# jammming2024# React + TypeScript + Vite
+# jammming2024# 
+
+React + TypeScript + Vite + Bootstrap
+
+
 
 https://www.favicon-generator.org/
 https://pixabay.com/illustrations/headphones-smile-music-young-happy-4788350/
