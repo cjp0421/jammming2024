@@ -1,6 +1,21 @@
+import { useState } from 'react';
 import styles from './App.module.css'
+import SearchResults from "../components/searchresults/SearchResults"
+
 
 function App() {
+  const [searchResults, setSearchResults] = useState([{
+    name: "example track name 1",
+    artist: "example track artist 1",
+    album: "example track album 1",
+  },
+  {
+    name: "example track name 1",
+    artist: "example track artist 1",
+    album: "example track album 1",
+  }
+  ])
+
 
   return (
     <div className={styles.App}>
@@ -8,7 +23,7 @@ function App() {
         <div className='row'>
           <div className='col-6'>
 
-            <h1> Ja<span className={styles.highlight}>mmm</span>ing</h1>
+            <h1>Ja<span className={styles.highlight}>mmm</span>ing</h1>
           </div>
           <div className='col-6 text-end'>
             <div className={styles["header-links"]}>
@@ -30,7 +45,10 @@ function App() {
         </div>
       </header>
 
-      <div className={styles['App-playlist']}></div>
+
+      <div className={styles['App-playlist']}>
+        <SearchResults userSearchResults={searchResults} />
+      </div>
 
       <footer>
         <div className='row'>

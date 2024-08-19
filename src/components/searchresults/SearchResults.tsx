@@ -1,9 +1,10 @@
+import Tracklist from "../tracklist/Tracklist";
 import styles from "./SearchResults.module.css"
 
-function SearchResults() {
+function SearchResults(props) {
     return (
         <div className={styles.SearchResults}>
-            {/* <!-- Add a TrackList component --> */}
+            <Tracklist userSearchResults={props.userSearchResults} />
         </div>
     );
 }
