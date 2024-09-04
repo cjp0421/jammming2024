@@ -1,16 +1,16 @@
 import styles from "./Track.module.css"
 
-export type TrackProps = {
-    isRemoval: boolean,
-    track: {
-        id: string,
-        name: string,
-        artist: string,
-        album: string,
-    }
-}
+// export type TrackProps = {
+//     isRemoval: boolean,
+//     track: {
+//         id: string,
+//         name: string,
+//         artist: string,
+//         album: string,
+//     }
+// }
 
-function Track(props: TrackProps) {
+function Track(props) {
     const renderAction = () => {
         return <button className="track-action">{props.isRemoval ? "-" : "+"}</button>
     }

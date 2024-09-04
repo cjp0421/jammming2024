@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './App.module.css'
 import SearchResults from "../components/searchresults/SearchResults"
+import Playlist from '../components/playlist/Playlist';
 
 
 function App() {
@@ -10,12 +11,32 @@ function App() {
     album: "example track album 1",
   },
   {
-    name: "example track name 1",
-    artist: "example track artist 1",
-    album: "example track album 1",
+    name: "example track name 2",
+    artist: "example track artist 2",
+    album: "example track album 2",
   }
   ])
 
+  const [playlistName, setPlaylistName] = useState([{
+    name: "Playlist Track Name 1",
+    artist: "Playlist Track Artist 1",
+    album: "Playlist Track Album 1",
+  },
+  {
+    name: "Playlist Track Name 2",
+    artist: "Playlist Track Artist 2",
+    album: "Playlist Track Album 2",
+  }])
+
+  const [playlistTracks, setPlaylistTracks] = useState([{
+    name: "example Playlist track name 2",
+    artist: "example Playlist track artist 2",
+    album: "example Playlist track album 2",
+  }])
+
+  const addTrack = (track: object) => {
+
+  }
 
   return (
     <div className={styles.App}>
@@ -47,7 +68,14 @@ function App() {
 
 
       <div className={styles['App-playlist']}>
-        <SearchResults userSearchResults={searchResults} />
+
+        <div className='row'>
+          <div className='col d-flex'>
+            <SearchResults className='col-6' userSearchResults={searchResults} />
+            <Playlist className='col-6' playlistName={playlistName} playlistTracks={playlistTracks} />
+          </div>
+        </div>
+
       </div>
 
       <footer>
