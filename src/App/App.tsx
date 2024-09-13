@@ -34,8 +34,18 @@ function App() {
     album: "example Playlist track album 2",
   }])
 
-  const addTrack = (track: object) => {
+  const addTrack = (track) => {
+    const existingTrack = playlistTracks.find(t => t.id === track.id)
+    const newTrack = playlistTracks.concat(track)
+    if (existingTrack) {
+      console.log("Track already exists in playlist")
+      setPlaylistTracks(newTrack);
+    }
+  }
 
+  const removeTrack = (track) => {
+    const updatedPlaylist = playlistTracks.filter((t) => t.id !== track.id);
+    setPlaylistTracks(updatedPlaylist)
   }
 
   return (
@@ -71,7 +81,7 @@ function App() {
 
         <div className='row'>
           <div className='col d-flex'>
-            <SearchResults className='col-6' userSearchResults={searchResults} />
+            <SearchResults className='col-6' userSearchResults={searchResults} onAdd={addTrack} />
             <Playlist className='col-6' playlistName={playlistName} playlistTracks={playlistTracks} />
           </div>
         </div>
