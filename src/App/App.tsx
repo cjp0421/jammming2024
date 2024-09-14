@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './App.module.css'
 import SearchResults from "../components/searchresults/SearchResults"
 import Playlist from '../components/playlist/Playlist';
+import SearchBar from '../components/searchbar/SearchBar';
 
 
 function App() {
@@ -9,29 +10,23 @@ function App() {
     name: "example track name 1",
     artist: "example track artist 1",
     album: "example track album 1",
+    id: 1,
   },
   {
     name: "example track name 2",
     artist: "example track artist 2",
     album: "example track album 2",
+    id: 2,
   }
   ])
 
-  const [playlistName, setPlaylistName] = useState([{
-    name: "Playlist Track Name 1",
-    artist: "Playlist Track Artist 1",
-    album: "Playlist Track Album 1",
-  },
-  {
-    name: "Playlist Track Name 2",
-    artist: "Playlist Track Artist 2",
-    album: "Playlist Track Album 2",
-  }])
+  const [playlistName, setPlaylistName] = useState("Example Playlist Name")
 
   const [playlistTracks, setPlaylistTracks] = useState([{
     name: "example Playlist track name 2",
     artist: "example Playlist track artist 2",
     album: "example Playlist track album 2",
+    id: 21,
   }])
 
   const addTrack = (track) => {
@@ -79,13 +74,14 @@ function App() {
         </div>
       </header>
 
+      <SearchBar />
 
       <div className={styles['App-playlist']}>
 
         <div className='row'>
           <div className='col d-flex'>
             <SearchResults className='col-6' userSearchResults={searchResults} onAdd={addTrack} />
-            <Playlist className='col-6' playlistName={playlistName} playlistTracks={playlistTracks} />
+            <Playlist playlistName={playlistName} playlistTracks={playlistTracks} onRemove={removeTrack} />
           </div>
         </div>
 
