@@ -11,19 +11,19 @@ import styles from "./Track.module.css"
 // }
 
 function Track(props) {
-    const passTrack = () => {
+    const passTrack = (props) => {
         props.onAdd(props.track)
     }
 
-    const passTrackTrackToRemove = (props) => {
-        console.log(`Track to remove ${props.track.id}`)
+    const passTrackToRemove = (props) => {
+        props.onRemove(props.track)
     }
 
     const renderAction = () => {
         if (props.isRemoval) {
-            return <button className={"Track-action"} onClick={passTrack}>+</button>
+            return <button className={styles["Track-action"]} onClick={passTrack}>-</button>
         } else {
-            return <button className={"track-action"} onClick={passTrackTrackToRemove}>-</button>
+            return <button className={styles["Track-action"]} onClick={passTrackToRemove}>+</button>
         }
 
     }
