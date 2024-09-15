@@ -1,7 +1,7 @@
-import Tracklist from "../tracklist/Tracklist";
+import Tracklist, { Track } from "../tracklist/Tracklist";
 import styles from "./Playlist.module.css"
 
-function Playlist(props: { playlistTracks: any[]; isRemoval: any; playlistName: any; onAdd: any; onRemove: any; }) {
+function Playlist(props: { isRemoval: boolean; playlistName: string; onAdd: (track: object) => void; playlistTracks: Track[]; onRemove: (track: object) => void; }) {
     return (
         <div className={styles.Playlist}>
             <input defaultValue={"New Playlist"} />
