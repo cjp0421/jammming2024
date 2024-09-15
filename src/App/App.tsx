@@ -34,7 +34,7 @@ function App() {
     const existingTrack = playlistTracks.find(t => t.id === track.id)
 
     if (existingTrack) {
-      console.log("Track already exists in playlist")
+      console.log("Track already exists in playlist. Cannot be added again.")
       return;
     }
 
@@ -43,6 +43,13 @@ function App() {
   }
 
   const removeTrack = (track: Track) => {
+    const nonexistingTrack = playlistTracks.filter((t) => t.id !== track.id);
+
+    if (!nonexistingTrack) {
+      console.log("Track does not exist in playlist. Cannot be deleted.")
+      return
+    }
+
     const updatedPlaylist = playlistTracks.filter((t) => t.id !== track.id);
     setPlaylistTracks(updatedPlaylist)
   }
