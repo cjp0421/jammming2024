@@ -1,26 +1,24 @@
+import { Track as TrackType } from "../tracklist/Tracklist";
 import styles from "./Track.module.css"
 
-// export type TrackProps = {
-//     isRemoval: boolean,
-//     track: {
-//         id: string,
-//         name: string,
-//         artist: string,
-//         album: string,
-//     }
-// }
+export type TrackProps = {
+    isRemoval: boolean;
+    onAdd: (track: TrackType) => void;
+    onRemove: (track: TrackType) => void;
+    track: TrackType;
+}
 
-function Track(props) {
-    const passTrack = (props) => {
-        props.onAdd(props.track)
+function Track({ isRemoval, onAdd, onRemove, track }: TrackProps) {
+    const passTrack = () => {
+        onAdd(track)
     }
 
-    const passTrackToRemove = (props) => {
-        props.onRemove(props.track)
+    const passTrackToRemove = () => {
+        onRemove(track)
     }
 
     const renderAction = () => {
-        if (props.isRemoval) {
+        if (isRemoval) {
             return <button className={styles["Track-action"]} onClick={passTrack}>+</button>
         } else {
             return <button className={styles["Track-action"]} onClick={passTrackToRemove}>-</button>
@@ -33,9 +31,9 @@ function Track(props) {
     return (
         <div className={styles.Track}>
             <div className={styles["Track-information"]}>
-                <h3>{props.track.name}</h3>
+                <h3>{track.name}</h3>
 
-                <p> {props.track.artist} | {props.track.album}</p>
+                <p> {track.artist} | {track.album}</p>
             </div>
 
             {renderAction()}
