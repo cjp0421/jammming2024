@@ -3,6 +3,7 @@ import styles from './App.module.css'
 import SearchResults from "../components/searchresults/SearchResults"
 import Playlist from '../components/playlist/Playlist';
 import SearchBar from '../components/searchbar/SearchBar';
+import { Track } from '../components/tracklist/Tracklist';
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
     id: 21,
   }])
 
-  const addTrack = (track) => {
+  const addTrack = (track: Track) => {
     const existingTrack = playlistTracks.find(t => t.id === track.id)
 
     if (existingTrack) {
@@ -41,7 +42,7 @@ function App() {
     setPlaylistTracks(newTrack);
   }
 
-  const removeTrack = (track) => {
+  const removeTrack = (track: Track) => {
     const updatedPlaylist = playlistTracks.filter((t) => t.id !== track.id);
     setPlaylistTracks(updatedPlaylist)
   }
@@ -81,7 +82,7 @@ function App() {
         <div className='row'>
           <div className='col d-flex'>
             <SearchResults className='col-6' userSearchResults={searchResults} onAdd={addTrack} />
-            <Playlist playlistName={playlistName} playlistTracks={playlistTracks} onRemove={removeTrack} />
+            <Playlist playlistName={playlistName} playlistTracks={playlistTracks} onRemove={removeTrack} onAdd={addTrack} isRemoval={false} />
           </div>
         </div>
 

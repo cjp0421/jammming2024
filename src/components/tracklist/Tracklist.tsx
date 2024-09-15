@@ -8,7 +8,7 @@ export type Track = {
     id: number;
 }
 
-function Tracklist(props: { userSearchResults: Track[]; isRemoval: boolean; onAdd: (track: object) => void; onRemove: (track: object) => void; }) {
+function Tracklist(props: { userSearchResults: Track[]; isRemoval: boolean; onAdd: (track: Track) => void; onRemove: (track: Track) => void; }) {
     return (
         <div className={styles.TrackList}>
             {/* <!-- You will add a map method that renders a set of Track components  --> */}
