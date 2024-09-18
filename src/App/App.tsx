@@ -62,9 +62,13 @@ function App() {
 
   const savePlaylist = () => {
     console.log("Save clicked")
-    const trackURIs = playlistTracks.map((t) => t.uri === track.uri)
+    const trackURIs = playlistTracks.map((t) => t.uri)
 
     console.log(trackURIs);
+    Spotify.savePlaylist(playlistName, trackURIs).then(() => {
+      setPlaylistName("New Playlist Name")
+      setPlaylistTracks([])
+    })
   }
 
   const search = (searchTerm: string) => {
