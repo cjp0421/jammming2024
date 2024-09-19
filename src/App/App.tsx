@@ -62,7 +62,7 @@ function App() {
 
   const savePlaylist = () => {
     console.log("Save clicked")
-    const trackURIs = playlistTracks.map((t) => t.uri)
+    const trackURIs = playlistTracks.map((t: TrackType) => t.uri)
 
     console.log(trackURIs);
     Spotify.savePlaylist(playlistName, trackURIs).then(() => {
@@ -112,8 +112,9 @@ function App() {
 
         <div className='row'>
           <div className='col d-flex'>
-            <SearchResults className='col-6' userSearchResults={searchResults} onAdd={addTrack} />
-            <Playlist playlistName={playlistName} playlistTracks={playlistTracks} onRemove={removeTrack} onAdd={addTrack} isRemoval={false} onNameChange={updatePlaylistName} onSave={savePlaylist} />
+            <div className='col-6'><SearchResults userSearchResults={searchResults} onAdd={addTrack} isRemoval={false} onRemove={removeTrack} /></div>
+            <div className='col-6'><Playlist playlistName={playlistName} playlistTracks={playlistTracks} onRemove={removeTrack} onAdd={addTrack} isRemoval={false} onNameChange={updatePlaylistName} onSave={savePlaylist} /></div>
+
           </div>
         </div>
 

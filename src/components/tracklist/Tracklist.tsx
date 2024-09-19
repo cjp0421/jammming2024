@@ -6,6 +6,7 @@ export type Track = {
     artist: string;
     album: string;
     id: number;
+    uri?: string;
 }
 
 function Tracklist(props: { userSearchResults: Track[]; isRemoval: boolean; onAdd: (track: Track) => void; onRemove: (track: Track) => void; }) {
