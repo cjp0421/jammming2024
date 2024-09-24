@@ -1,3 +1,23 @@
+:root {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-image: url('src/assets/jammingBackground.png');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-color: #431448;
+  background-size: 100%;
+  color: #e5c5ba !important;
+  display: flex;
+  font-family: 'Rubik', sans-serif;
+  min-width: 320px;
+  min-height: 100vh;
+  font-size: 18px;
+}
+
 .App {
   font-family: "Rubik", sans-serif;
   font-weight: 500;
@@ -76,14 +96,6 @@ footer {
   color: #513f6a !important;
   letter-spacing: .2rem;
 }
-
-/* @media only screen and (max-width: 1020px) {
-  .App-playlist {
-    align-items: center;
-    flex-direction: column;
-  }
-
-} */
 
 @media (max-width: 690px) {
 
