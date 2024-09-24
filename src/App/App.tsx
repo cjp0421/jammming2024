@@ -7,21 +7,15 @@ import { Track as TrackType } from '../components/tracklist/Tracklist';
 // @ts-expect-error Types need to be created for this import
 import { Spotify } from "../util/Spotify/Spotify.js";
 
+interface SearchResult {
+  name: string;
+  artist: string;
+  album: string;
+  id: number;
+}
 
 function App() {
-  const [searchResults, setSearchResults] = useState([{
-    name: "example track name 1",
-    artist: "example track artist 1",
-    album: "example track album 1",
-    id: 1,
-  },
-  {
-    name: "example track name 2",
-    artist: "example track artist 2",
-    album: "example track album 2",
-    id: 2,
-  }
-  ])
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([])
 
   const [playlistName, setPlaylistName] = useState("Example Playlist Name")
 
