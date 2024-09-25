@@ -7,7 +7,7 @@ import { Track as TrackType } from '../components/tracklist/Tracklist';
 // @ts-expect-error Types need to be created for this import
 import { Spotify } from "../util/Spotify/Spotify.js";
 
-interface SearchResult {
+interface TrackInterface {
   name: string;
   artist: string;
   album: string;
@@ -15,16 +15,11 @@ interface SearchResult {
 }
 
 function App() {
-  const [searchResults, setSearchResults] = useState<SearchResult[]>([])
+  const [searchResults, setSearchResults] = useState<TrackInterface[]>([])
 
   const [playlistName, setPlaylistName] = useState("Example Playlist Name")
 
-  const [playlistTracks, setPlaylistTracks] = useState([{
-    name: "example Playlist track name 2",
-    artist: "example Playlist track artist 2",
-    album: "example Playlist track album 2",
-    id: 21,
-  }])
+  const [playlistTracks, setPlaylistTracks] = useState<TrackInterface[]>([])
 
   const addTrack = (track: TrackType) => {
     const existingTrack = playlistTracks.find(t => t.id === track.id)
@@ -102,18 +97,14 @@ function App() {
 
       <SearchBar onSearch={search} />
 
-      <div className={styles['App-playlist']}>
-
+      <div className='container'>
         <div className='row'>
           <div className='col d-flex'>
             <div className='col-6'><SearchResults userSearchResults={searchResults} onAdd={addTrack} isRemoval={false} onRemove={removeTrack} /></div>
             <div className='col-6'><Playlist playlistName={playlistName} playlistTracks={playlistTracks} onRemove={removeTrack} onAdd={addTrack} isRemoval={false} onNameChange={updatePlaylistName} onSave={savePlaylist} /></div>
-
           </div>
         </div>
-
       </div>
-
       <footer>
         <div className='row'>
           <div className='col-6'>

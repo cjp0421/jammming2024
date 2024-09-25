@@ -1,6 +1,5 @@
 .SearchResults {
-    width: 50%;
-    height: 650px;
+    max-height: 100vh;
     overflow-y: scroll;
     padding: .88rem;
     background-color: hsla(311, 64%, 50%, .4);
@@ -12,9 +11,4 @@
     background: transparent;
 }
 
-/* @media only screen and (max-width: 1020px) {
-    .SearchResults {
-        width: 90%;
-        margin-bottom: 2rem;
-    }
-} */
+/* @media only screen and (max-width: 1020px) {} */
