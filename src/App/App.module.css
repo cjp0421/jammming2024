@@ -9,7 +9,7 @@ body {
   background-repeat: no-repeat;
   background-color: #431448;
   background-size: cover;
-  color: #e5c5ba !important;
+  color: #f9f9f9 !important;
   display: flex;
   font-family: 'Rubik', sans-serif;
   max-height: 100vh;
@@ -51,7 +51,7 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
   width: 100%;
-  color: #e5c5ba !important;
+  color: #f9f9f9 !important;
   text-shadow:
     3px 3px 0 #431448,
     -3px 3px 0 #431448,

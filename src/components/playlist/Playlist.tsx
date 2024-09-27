@@ -10,7 +10,6 @@ function Playlist(props: { isRemoval: boolean; playlistName: string; onSave: () 
     return (
         <div className={styles.Playlist}>
             <input defaultValue={"New Playlist"} onChange={handleNameChange} />
-            {/* <!-- Add a TrackList component --> */}
             <Tracklist userSearchResults={props.playlistTracks} isRemoval={props.isRemoval} onAdd={props.onAdd} onRemove={props.onRemove} />
             <button className={styles["Playlist-save"]} onClick={props.onSave}>
                 SAVE TO SPOTIFY

@@ -12,9 +12,10 @@ export type Track = {
 function Tracklist(props: { userSearchResults: Track[]; isRemoval: boolean; onAdd: (track: Track) => void; onRemove: (track: Track) => void; }) {
     return (
         <div className={styles.TrackList}>
+
             {props.userSearchResults.length > 0 ? (props.userSearchResults?.map((track) => (
                 <Track track={track} key={track.id} isRemoval={props.isRemoval} onAdd={props.onAdd} onRemove={props.onRemove} />
-            ))) : (<h2>Nothing Here Yet!</h2>)}
+            ))) : (<h4>Nothing Here Yet!</h4>)}
         </div>
     );
 }
