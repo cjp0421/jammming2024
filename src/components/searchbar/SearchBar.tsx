@@ -1,3 +1,4 @@
+import { Box } from "@mui/material"
 import styles from "./Searchbar.module.css"
 import { useState } from "react"
 
@@ -13,7 +14,7 @@ function SearchBar({ onSearch }: { onSearch: (term: string) => void }) {
     }
 
     return (
-        <div className={styles.SearchBar}>
+        <Box className={styles.SearchBar}>
             <input
                 placeholder="Enter A Song, Album, or Artist"
                 onChange={handleTermChange}
@@ -23,7 +24,7 @@ function SearchBar({ onSearch }: { onSearch: (term: string) => void }) {
                 SEARCH
             </button>
 
-        </div>
+        </Box>
     );
 }
 

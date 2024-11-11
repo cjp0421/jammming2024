@@ -6,7 +6,7 @@ import SearchBar from '../components/searchbar/SearchBar';
 import { Track as TrackType } from '../components/tracklist/Tracklist';
 // @ts-expect-error Types need to be created for this import
 import { Spotify } from "../util/Spotify/Spotify.js";
-import { Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 
 interface TrackInterface {
   name: string;
@@ -69,51 +69,63 @@ function App() {
   }
 
   return (
-    <Container>
-      <div className={styles.App}>
-        <header className='header'>
-          <div className='row'>
-            <div className='col-6'>
+    <Container sx={{
+      width: "100%"
+    }}>
+      <Box display='flex' justifyContent="space-between" alignItems="center" width="100%">
+        <Box sx={{
+          justifyContent: 'flex-start',
+        }}>
+          <Typography variant='h1' sx={{
+            fontSize: '48px',
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            Ja<span className={styles.highlight}>mmm</span>ing
+          </Typography>
+        </Box>
+        <Box className={styles["header-links"]} sx={{
+          display: 'flex',
+          gap: 1,
+          justifyContent: 'flex-end',
 
-              <h1>Ja<span className={styles.highlight}>mmm</span>ing</h1>
-            </div>
-            <div className='col-6 text-end'>
-              <div className={styles["header-links"]}>
-                <a
-                  className={styles["header-link"]}
-                  target="_blank"
-                  referrerPolicy="no-referrer"
-                  href='https://github.com/cjp0421/jammming2024'>
-                  Github</a>
-                <a
-                  className={styles["header-link"]}
-                  href='#'>Portfolio</a>
-                <a
-                  className={styles["header-link"]}
-                  target="_blank" referrerPolicy="no-referrer" href='https://www.linkedin.com/in/carol-joy-pedersen'>LinkedIn</a>
-              </div>
+        }}>
+          <a
+            className={styles["header-link"]}
+            target="_blank"
+            referrerPolicy="no-referrer"
+            href='https://github.com/cjp0421/jammming2024'>
+            Github</a>
+          <a
+            className={styles["header-link"]}
+            href='#'>Portfolio</a>
+          <a
+            className={styles["header-link"]}
+            target="_blank"
+            referrerPolicy="no-referrer"
+            href='https://www.linkedin.com/in/carol-joy-pedersen'>
+            LinkedIn</a>
+        </Box>
+      </Box>
 
-            </div>
-          </div>
-        </header>
+      <Box display='flex' width='100%'>
+        <Box sx={{ flex: 1 }}>
+          <SearchBar onSearch={search} />
+        </Box>
+      </Box>
+      <Box display="flex" width="100%" padding={2} gap={2} alignItems="stretch" sx={{ height: '500px' }}>
+        <Box sx={{ flex: 1, height: '500px' }}>
+          <SearchResults userSearchResults={searchResults} onAdd={addTrack} isRemoval={false} onRemove={removeTrack} />
+        </Box>
+        <Box sx={{ flex: 1, height: '500px' }}>
+          <Playlist playlistName={playlistName} playlistTracks={playlistTracks} onRemove={removeTrack} onAdd={addTrack} isRemoval={false} onNameChange={updatePlaylistName} onSave={savePlaylist} />
+        </Box>
+      </Box>
 
-        <SearchBar onSearch={search} />
 
 
-        <div className='row'>
-          <div className='col d-flex'>
-            <div className='col-6'><SearchResults userSearchResults={searchResults} onAdd={addTrack} isRemoval={false} onRemove={removeTrack} /></div>
-            <div className='col-6'><Playlist playlistName={playlistName} playlistTracks={playlistTracks} onRemove={removeTrack} onAdd={addTrack} isRemoval={false} onNameChange={updatePlaylistName} onSave={savePlaylist} /></div>
-          </div>
-        </div>
-      </div>
       <footer>
-        <div className='row'>
-          <div className='col-6'>
-            <a target="_blank" referrerPolicy="no-referrer" href='https://github.com/cjp0421/jammming2024/blob/main/README.md'>About</a>
-          </div>
-
-        </div>
+        <a target="_blank" referrerPolicy="no-referrer" href='https://github.com/cjp0421/jammming2024/blob/main/README.md'>About</a>
       </footer>
     </Container >
   )

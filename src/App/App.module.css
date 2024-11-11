@@ -1,25 +1,11 @@
-:root {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 body {
   background-image: url('/jammingBackground.jpg');
   background-repeat: no-repeat;
   background-color: #431448;
   background-size: cover;
   color: #f9f9f9 !important;
-  display: flex;
   font-family: 'Rubik', sans-serif;
-  max-height: 100vh;
   font-size: 18px;
-}
-
-.App {
-  font-family: "Rubik", sans-serif;
-  font-weight: 500;
-  height: 100vh;
 }
 
 a {
@@ -44,13 +30,11 @@ a:hover {
 h1 {
   top: .5%;
   left: 2.5%;
-  padding: 1% !important;
   background-color: #010c3f;
   text-align: center;
   font-size: 1.88rem;
   font-size: 3.2em;
   line-height: 1.1;
-  width: 100%;
   color: #f9f9f9 !important;
   text-shadow:
     3px 3px 0 #431448,
@@ -86,7 +70,6 @@ footer {
   position: fixed;
   left: 1%;
   bottom: 1%;
-  width: 100%;
   margin: 7px;
   color: #513f6a !important;
   letter-spacing: .2rem;
@@ -106,7 +89,6 @@ footer {
   .header-link {
     display: flex;
     font-size: smaller;
-    width: fit-content;
     flex-wrap: wrap;
     padding: 1%;
   }

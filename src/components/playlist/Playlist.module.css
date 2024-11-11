@@ -10,7 +10,7 @@
 }
 
 .Playlist input {
-    width: 100%;
+
     border: 0;
     outline: 0;
     background: transparent;
@@ -22,7 +22,7 @@
 
 .Playlist-save {
     cursor: pointer;
-    width: 10rem;
+
     padding: .77rem 0;
     border-radius: 54px;
     border-width: 0px;
@@ -40,12 +40,5 @@
 }
 
 ::-webkit-scrollbar {
-    width: 0px;
     background: transparent;
 }
-
-/* @media only screen and (max-width: 1020px) {
-    .Playlist {
-        width: 90%;
-    }
-} */
