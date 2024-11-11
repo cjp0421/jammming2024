@@ -6,6 +6,7 @@ import SearchBar from '../components/searchbar/SearchBar';
 import { Track as TrackType } from '../components/tracklist/Tracklist';
 // @ts-expect-error Types need to be created for this import
 import { Spotify } from "../util/Spotify/Spotify.js";
+import { Container } from '@mui/material';
 
 interface TrackInterface {
   name: string;
@@ -68,36 +69,37 @@ function App() {
   }
 
   return (
-    <div className={styles.App}>
-      <header className='header'>
-        <div className='row'>
-          <div className='col-6'>
+    <Container>
+      <div className={styles.App}>
+        <header className='header'>
+          <div className='row'>
+            <div className='col-6'>
 
-            <h1>Ja<span className={styles.highlight}>mmm</span>ing</h1>
-          </div>
-          <div className='col-6 text-end'>
-            <div className={styles["header-links"]}>
-              <a
-                className={styles["header-link"]}
-                target="_blank"
-                referrerPolicy="no-referrer"
-                href='https://github.com/cjp0421/jammming2024'>
-                Github</a>
-              <a
-                className={styles["header-link"]}
-                href='#'>Portfolio</a>
-              <a
-                className={styles["header-link"]}
-                target="_blank" referrerPolicy="no-referrer" href='https://www.linkedin.com/in/carol-joy-pedersen'>LinkedIn</a>
+              <h1>Ja<span className={styles.highlight}>mmm</span>ing</h1>
             </div>
+            <div className='col-6 text-end'>
+              <div className={styles["header-links"]}>
+                <a
+                  className={styles["header-link"]}
+                  target="_blank"
+                  referrerPolicy="no-referrer"
+                  href='https://github.com/cjp0421/jammming2024'>
+                  Github</a>
+                <a
+                  className={styles["header-link"]}
+                  href='#'>Portfolio</a>
+                <a
+                  className={styles["header-link"]}
+                  target="_blank" referrerPolicy="no-referrer" href='https://www.linkedin.com/in/carol-joy-pedersen'>LinkedIn</a>
+              </div>
 
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <SearchBar onSearch={search} />
+        <SearchBar onSearch={search} />
 
-      <div className='container'>
+
         <div className='row'>
           <div className='col d-flex'>
             <div className='col-6'><SearchResults userSearchResults={searchResults} onAdd={addTrack} isRemoval={false} onRemove={removeTrack} /></div>
@@ -110,10 +112,10 @@ function App() {
           <div className='col-6'>
             <a target="_blank" referrerPolicy="no-referrer" href='https://github.com/cjp0421/jammming2024/blob/main/README.md'>About</a>
           </div>
-        </div>
 
+        </div>
       </footer>
-    </div>
+    </Container >
   )
 }
 

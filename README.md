@@ -6,7 +6,7 @@ This [project](https://cjpsjammming2024.surge.sh/) demonstrates my front-end dev
 This project was completed as part of the Codecademy course [Create a Front-end App with React Skill Path](https://www.codecademy.com/profiles/carolPedersen9327983972/certificates/5c9ce0b45f1de879ebcad4fd). Although I did reference a tutorial to build the first iteration of the app, I chose to use TypeScipt and Vite to better simulate a modern production environment. I intend to continue iterating on both the design and the functionality.
 
 **Technologies Used** \
-React + TypeScript + Vite + Bootstrap + Surge
+React + TypeScript + Vite + MUI + Surge
 
 **Features**
 - Connects to a user's Spotify account
