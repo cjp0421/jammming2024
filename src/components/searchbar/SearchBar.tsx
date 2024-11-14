@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Box, Button } from "@mui/material"
 import styles from "./Searchbar.module.css"
 import { useState } from "react"
 
@@ -23,7 +23,12 @@ function SearchBar({ onSearch }: { onSearch: (term: string) => void }) {
             <button className={styles.SearchButton} onClick={passTerm}>
                 SEARCH
             </button>
-
+            <Box>
+                <Button sx={{ color: 'white', fontWeight: '900', backgroundColor: 'blue' }}>a</Button>
+                <Button sx={{ color: 'white', fontWeight: '900', backgroundColor: 'blue' }}>b</Button>
+                <Button sx={{ color: 'white', fontWeight: '900', backgroundColor: 'blue' }}>c</Button>
+                <Button sx={{ color: 'white', fontWeight: '900', backgroundColor: 'blue' }}>d</Button>
+            </Box>
         </Box>
     );
 }

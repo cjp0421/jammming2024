@@ -2,12 +2,13 @@ let accessToken;
 
 const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 const redirectURL = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
+// const redirectURL = `http://localhost:5173`
+
+const spotifyBaseURL = `https://api.spotify.com`;
+const searchType = `artist,album,track`
 
 const Spotify = {
     getAccessToken() {
-        console.log(accessToken)
-        console.log(clientId)
-        console.log(redirectURL)
         if (accessToken) return accessToken;
 
         const tokenInURL = window.location.href.match(/access_token=([^&]*)/);
@@ -23,7 +24,6 @@ const Spotify = {
         }
 
         const redirect = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURL}`;
-        console.log(redirect)
 
         window.location = redirect;
     },
@@ -35,7 +35,7 @@ const Spotify = {
         if (!accessToken) {
             this.getAccessToken();
         }
-        const response = await fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
+        const response = await fetch(`${spotifyBaseURL}/v1/search?type=${searchType}&q=${term}`, {
             method: 'GET',
             headers: { Authorization: `Bearer ${accessToken}` }
         });
