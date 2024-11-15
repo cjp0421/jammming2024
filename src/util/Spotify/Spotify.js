@@ -78,6 +78,7 @@ const Spotify = {
                 album: t.album.name,
                 uri: t.uri,
                 type: 'track',
+                image: t.album.images[2].url
             }));
         } else if (apiSearchType.includes("artist") && jsonResponse.artists?.items?.length > 0) {
             return jsonResponse.artists?.items?.map(a => ({
@@ -88,6 +89,7 @@ const Spotify = {
                 uri: a.uri,
                 external_url: a.external_urls?.spotify || "",
                 type: 'artist',
+                image: a.images[0]?.url || ""
             }))
         } else if (apiSearchType.includes("album") && jsonResponse.albums?.items?.length > 0) {
             return jsonResponse.albums?.items?.map(al => ({
@@ -95,21 +97,14 @@ const Spotify = {
                 name: al.name,
                 artist: al.artists[0].name,
                 uri: al.uri,
-                type: 'album'
+                type: 'album',
+                image: al.images[0]?.url,
             }));
         } else {
             console.error("No results found");
             return [];
         }
 
-
-        // return jsonResponse.tracks.items.map(t => ({
-        //     id: t.id,
-        //     name: t.name,
-        //     artist: t.artists[0].name,
-        //     album: t.album.name,
-        //     uri: t.uri,
-        // }));
     },
 
     savePlaylist(name, trackURIs) {

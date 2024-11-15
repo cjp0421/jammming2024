@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { Track as TrackType } from "../tracklist/Tracklist";
 import styles from "./Track.module.css"
 
@@ -27,17 +28,18 @@ function Track({ isRemoval, onAdd, onRemove, track }: TrackProps) {
     }
 
 
-
     return (
-        <div className={styles.Track}>
+        <Box className={styles.Track}>
             <div className={styles["Track-information"]}>
                 <h3>{track.name}</h3>
-
-                <p> {track.artist} | {track.album}</p>
+                <img src={track.image} style={{
+                    maxWidth: '65px'
+                }} />
+                <p>{track.artist} | {track.album}</p>
             </div>
 
             {renderAction()}
-        </div>
+        </Box>
     );
 }
 
