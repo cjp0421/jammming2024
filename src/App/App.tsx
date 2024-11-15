@@ -21,6 +21,7 @@ function App() {
   const [playlistName, setPlaylistName] = useState("Example Playlist Name")
 
   const [playlistTracks, setPlaylistTracks] = useState<TrackInterface[]>([])
+  const [currentSearchType, setCurrentSearchType] = useState("track");
 
   const addTrack = (track: TrackType) => {
     const existingTrack = playlistTracks.find(t => t.id === track.id)
@@ -63,6 +64,7 @@ function App() {
 
   const search = (searchTerm: string, searchType: string) => {
     console.log("App search term:" + searchTerm, "App search type" + searchType);
+    setCurrentSearchType(searchType);
     Spotify.search(searchTerm, searchType)
       .then((result: React.SetStateAction<{ name: string; artist: string; album: string; id: number; }[]>) => setSearchResults(result))
 
@@ -107,7 +109,6 @@ function App() {
             LinkedIn</a>
         </Box>
       </Box>
-
       <Box display='flex' width='100%'>
         <Box sx={{ flex: 1 }}>
           <SearchBar onSearch={search} />
@@ -117,12 +118,12 @@ function App() {
         <Box sx={{ flex: 1, height: '500px' }}>
           <SearchResults userSearchResults={searchResults} onAdd={addTrack} isRemoval={false} onRemove={removeTrack} />
         </Box>
-        <Box sx={{ flex: 1, height: '500px' }}>
-          <Playlist playlistName={playlistName} playlistTracks={playlistTracks} onRemove={removeTrack} onAdd={addTrack} isRemoval={false} onNameChange={updatePlaylistName} onSave={savePlaylist} />
-        </Box>
+        {currentSearchType === 'track' &&
+          <Box sx={{ flex: 1, height: '500px' }}>
+            <Playlist playlistName={playlistName} playlistTracks={playlistTracks} onRemove={removeTrack} onAdd={addTrack} isRemoval={false} onNameChange={updatePlaylistName} onSave={savePlaylist} />
+          </Box>
+        }
       </Box>
-
-
 
       <footer>
         <a target="_blank" referrerPolicy="no-referrer" href='https://github.com/cjp0421/jammming2024/blob/main/README.md'>About</a>
