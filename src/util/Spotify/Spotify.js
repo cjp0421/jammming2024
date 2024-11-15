@@ -1,11 +1,10 @@
 let accessToken;
 
 const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-const redirectURL = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
-// const redirectURL = `http://localhost:5173`
+// const redirectURL = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
+const redirectURL = `http://localhost:5173`
 
 const spotifyBaseURL = `https://api.spotify.com`;
-const searchType = `artist,album,track`
 
 const Spotify = {
     getAccessToken() {
@@ -28,29 +27,89 @@ const Spotify = {
         window.location = redirect;
     },
 
-    async search(term) {
-        console.log(accessToken)
-        console.log(clientId)
-        console.log(redirectURL)
+    async search(term, searchType) {
+        // console.log(accessToken)
+        // console.log(clientId)
+        // console.log(redirectURL)
+        console.log("Recieved search type: ", searchType)
+
         if (!accessToken) {
             this.getAccessToken();
         }
-        const response = await fetch(`${spotifyBaseURL}/v1/search?type=${searchType}&q=${term}`, {
+
+        const query = encodeURIComponent(term)
+
+        let apiSearchType;
+
+        switch (searchType) {
+            case "track":
+                apiSearchType = "track";
+                break;
+            case "artist":
+                apiSearchType = "artist";
+                break;
+            case "album":
+                apiSearchType = "album";
+                break;
+            default:
+                apiSearchType = "artist,album,track";
+                break;
+        }
+
+        const response = await fetch(`${spotifyBaseURL}/v1/search?type=${apiSearchType}&q=${query}`, {
             method: 'GET',
             headers: { Authorization: `Bearer ${accessToken}` }
         });
+
+        console.log(apiSearchType)
         const jsonResponse = await response.json();
         console.log(jsonResponse)
+
         if (!jsonResponse) {
             console.error("Response Error");
         }
-        return jsonResponse.tracks.items.map(t => ({
-            id: t.id,
-            name: t.name,
-            artist: t.artists[0].name,
-            album: t.album.name,
-            uri: t.uri,
-        }));
+
+
+        if (apiSearchType.includes("track") && jsonResponse.tracks?.items?.length > 0) {
+            return jsonResponse.tracks?.items?.map(t => ({
+                id: t.id,
+                name: t.name,
+                artist: t.artists[0].name,
+                album: t.album.name,
+                uri: t.uri,
+                type: 'track',
+            }));
+        } else if (apiSearchType.includes("artist") && jsonResponse.artists?.items?.length > 0) {
+            return jsonResponse.artists?.items?.map(a => ({
+                id: a.id,
+                name: a.name,
+                genre: a.grenres?.[0] || "Unknown",
+                followers: a.followers.total || 0,
+                uri: a.uri,
+                external_url: a.external_urls?.spotify || "",
+                type: 'artist',
+            }))
+        } else if (apiSearchType.includes("album") && jsonResponse.albums?.items?.length > 0) {
+            return jsonResponse.albums?.items?.map(al => ({
+                id: al.id,
+                name: al.name,
+                artist: al.artists[0].name,
+                uri: al.uri,
+                type: 'album'
+            }));
+        } else {
+            console.error("No results found");
+            return [];
+        }
+
+
+        // return jsonResponse.tracks.items.map(t => ({
+        //     id: t.id,
+        //     name: t.name,
+        //     artist: t.artists[0].name,
+        //     album: t.album.name,
+        //     uri: t.uri,
+        // }));
     },
 
     savePlaylist(name, trackURIs) {

@@ -2,33 +2,92 @@ import { Box, Button } from "@mui/material"
 import styles from "./Searchbar.module.css"
 import { useState } from "react"
 
-function SearchBar({ onSearch }: { onSearch: (term: string) => void }) {
+function SearchBar({ onSearch }: { onSearch: (term: string, seachType: string) => void }) {
     const [term, setTerm] = useState("")
+    const [searchType, setSearchType] = useState("track");
 
     const handleTermChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         setTerm(target.value)
+        console.log(term)
     }
 
     const passTerm = () => {
-        onSearch(term)
+        onSearch(term, searchType)
+        console.log("passing search type", searchType)
+    }
+
+    const selectSearchType = (type: string) => {
+        setSearchType(type);
+        console.log("selected search type", type)
     }
 
     return (
         <Box className={styles.SearchBar}>
-            <input
-                placeholder="Enter A Song, Album, or Artist"
-                onChange={handleTermChange}
-            />
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 1
+            }}>
+                <input
+                    placeholder="Enter A Song, Album, or Artist"
+                    onChange={handleTermChange}
+                />
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        marginTop: '-40px',
+                        marginBottom: '40px',
+                    }}
+                >
+                    <Button
+                        className={styles.TypeButton}
+                        onClick={() => selectSearchType("track")}
+                        sx={{
+                            backgroundColor: searchType === "track" ? 'rgba(108, 65, 233, .7)' : '#010c3f',
+                            color: '#fff',
+                            padding: '12px',
+                            borderRadius: '20px'
+                        }}
+                    >
+                        Track
+                    </Button>
+                    <Button
+                        className={styles.TypeButton}
+                        onClick={() => selectSearchType("artist")}
+                        sx={{
+                            backgroundColor: searchType === "artist" ? 'rgba(108, 65, 233, .7)' : '#010c3f',
+                            color: '#fff',
+                            padding: '12px',
+                            borderRadius: '20px'
+                        }}
+                    >
+                        Artist
+                    </Button>
+                    <Button
+                        className={styles.TypeButton}
+                        onClick={() => selectSearchType("album")}
+                        sx={{
+                            backgroundColor: searchType === "album" ? 'rgba(108, 65, 233, .7)' : '#010c3f',
+                            color: '#fff',
+                            padding: '12px',
+                            borderRadius: '20px'
+                        }}
+                    >
+                        Album
+                    </Button>
+                </Box>
 
-            <button className={styles.SearchButton} onClick={passTerm}>
-                SEARCH
-            </button>
-            <Box>
-                <Button sx={{ color: 'white', fontWeight: '900', backgroundColor: 'blue' }}>a</Button>
-                <Button sx={{ color: 'white', fontWeight: '900', backgroundColor: 'blue' }}>b</Button>
-                <Button sx={{ color: 'white', fontWeight: '900', backgroundColor: 'blue' }}>c</Button>
-                <Button sx={{ color: 'white', fontWeight: '900', backgroundColor: 'blue' }}>d</Button>
             </Box>
+            <Button className={styles.SearchButton} onClick={passTerm}
+                sx={{
+                    backgroundColor: '#010c3f',
+                    color: '#fff',
+                }}
+            >
+                SEARCH
+            </Button>
+
         </Box>
     );
 }

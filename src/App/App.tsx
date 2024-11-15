@@ -61,9 +61,9 @@ function App() {
     })
   }
 
-  const search = (searchTerm: string) => {
-    console.log(searchTerm);
-    Spotify.search(searchTerm)
+  const search = (searchTerm: string, searchType: string) => {
+    console.log("App search term:" + searchTerm, "App search type" + searchType);
+    Spotify.search(searchTerm, searchType)
       .then((result: React.SetStateAction<{ name: string; artist: string; album: string; id: number; }[]>) => setSearchResults(result))
 
   }

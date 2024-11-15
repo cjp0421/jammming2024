@@ -25,16 +25,18 @@
     cursor: pointer;
     padding: .77rem 0;
     border-radius: 54px;
-    background-color: #010c3f;
     text-align: center;
     font-size: .833rem;
     transition: background-color .25s;
     border: 0px;
-    color: #fff;
     font-weight: 500;
     width: 100px;
 }
 
 .SearchButton:hover {
+    background-color: rgba(108, 65, 233, .7);
+}
+
+.TypeButton:hover {
     background-color: rgba(108, 65, 233, .7);
 }
