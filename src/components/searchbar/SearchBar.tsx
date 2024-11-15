@@ -37,7 +37,7 @@ function SearchBar({ onSearch }: { onSearch: (term: string, seachType: string) =
                         display: 'flex',
                         justifyContent: 'space-around',
                         marginTop: '-40px',
-                        marginBottom: '40px',
+                        marginBottom: '10px',
                     }}
                 >
                     <Button
@@ -46,7 +46,6 @@ function SearchBar({ onSearch }: { onSearch: (term: string, seachType: string) =
                         sx={{
                             backgroundColor: searchType === "track" ? 'rgba(108, 65, 233, .7)' : '#010c3f',
                             color: '#fff',
-                            padding: '12px',
                             borderRadius: '20px'
                         }}
                     >
