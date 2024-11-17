@@ -78,13 +78,13 @@ const Spotify = {
                 album: t.album.name,
                 uri: t.uri,
                 type: 'track',
-                image: t.album.images[2].url
+                image: t.album.images[0].url
             }));
         } else if (apiSearchType.includes("artist") && jsonResponse.artists?.items?.length > 0) {
             return jsonResponse.artists?.items?.map(a => ({
                 id: a.id,
                 name: a.name,
-                genre: a.grenres?.[0] || "Unknown",
+                genres: a.genres,
                 followers: a.followers.total || 0,
                 uri: a.uri,
                 external_url: a.external_urls?.spotify || "",
@@ -132,6 +132,36 @@ const Spotify = {
                 type: 'track',
                 image: albumImage,
                 album: albumName,
+            }));
+        } catch (error) {
+            console.error("Error fetching album tracks: ", error)
+            return [];
+        }
+    },
+
+    async getArtistAlbums(artistId) {
+        try {
+            const artistResponse = await fetch(`${spotifyBaseURL}/v1/artists/${artistId}/albums`, {
+                method: 'GET',
+                headers: { Authorization: `Bearer ${accessToken}` }
+            });
+
+            const artistJSON = await artistResponse.json();
+
+            if (!artistJSON) {
+                console.error("Error fetching artist details");
+                return [];
+            }
+
+            console.log(artistJSON)
+
+            return artistJSON.items.map((album) => ({
+                id: album.id,
+                name: album.name,
+                artist: album.artists[0].name,
+                uri: album.uri,
+                type: 'album',
+                image: album.images[0].url,
             }));
         } catch (error) {
             console.error("Error fetching album tracks: ", error)

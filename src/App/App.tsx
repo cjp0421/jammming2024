@@ -32,6 +32,16 @@ function App() {
     }
   };
 
+  const fetchArtistAlbums = async (artistId: string) => {
+    try {
+      const albums = await Spotify.getArtistAlbums(artistId);
+      setSearchResults(albums);
+      setCurrentSearchType('album')
+    } catch (error) {
+      console.error("Error fetching artist albums", error)
+    }
+  }
+
 
   const addTrack = (track: TrackType) => {
     const existingTrack = playlistTracks.find(t => t.id === track.id)
@@ -133,6 +143,7 @@ function App() {
             onRemove={removeTrack}
             onAlbumClick={fetchAlbumTracks}
             searchType={currentSearchType}
+            onArtistClick={fetchArtistAlbums}
           />
         </Box>
         {currentSearchType === 'track' &&
