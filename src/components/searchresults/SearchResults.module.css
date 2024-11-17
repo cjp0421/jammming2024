@@ -1,11 +1,18 @@
 .SearchResults {
-    max-height: 100vh;
+    max-height: 50vh;
     overflow-y: scroll;
     padding: .88rem;
-    background-color: hsla(311, 64%, 50%, .4);
+    background-color: hsla(311, 64%, 50%, .7);
     box-shadow: 0 4px 2px 2px #000000;
+    margin-top: -85px;
 }
 
 ::-webkit-scrollbar {
     background: transparent;
+}
+
+@media (min-width: 768px) {
+    .SearchResults {
+        max-width: 55vw;
+    }
 }

@@ -3,10 +3,11 @@
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
-    max-height: 100vh;
+    max-height: 50vh;
     padding: 2rem;
     background-color: rgba(1, 12, 63, 0.7);
     box-shadow: 0 4px 2px 2px #000000;
+    margin-top: -85px;
 }
 
 .Playlist input {
@@ -15,9 +16,10 @@
     background: transparent;
     border-bottom: 1px solid #6f6f6f;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.55rem;
+    font-size: 1.5rem;
     color: #fff;
     width: 100%;
+    font-weight: 900;
 }
 
 .Playlist-save {

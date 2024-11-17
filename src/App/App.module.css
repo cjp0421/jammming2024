@@ -1,56 +1,67 @@
+html,
 body {
-  background-image: url('/jammingBackground.jpg');
-  background-repeat: no-repeat;
-  background-color: #431448;
-  background-size: cover;
-  color: #f9f9f9 !important;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+body {
+  background: url('/jammingBackground.jpg') center/cover no-repeat, #431448;
+  color: #f9f9f9;
   font-family: 'Rubik', sans-serif;
   font-size: 18px;
 }
 
 a {
   font-weight: 500;
-  color: #5e2740 !important;
+  color: #5e2740;
   background-color: #e5c5ba;
   border-radius: 10px 100px / 120px;
-  opacity: 90%;
+  opacity: 0.9;
   padding: 1%;
-  text-decoration: none !important;
-  margin-left: 1.5%;
-  margin-top: 1.5%;
+  text-decoration: none;
+  margin: 1.5% 0 0 1.5%;
   display: inline-flex;
   flex-wrap: wrap;
 }
 
 a:hover {
-  color: #f9f9f9 !important;
+  color: #f9f9f9;
   background-color: hsl(311, 64%, 50%, .6);
 }
 
 h1 {
-  top: .5%;
-  left: 2.5%;
   background-color: #010c3f;
   text-align: center;
   font-size: 1.88rem;
   font-size: 3.2em;
   line-height: 1.1;
-  color: #f9f9f9 !important;
+  color: #f9f9f9;
   text-shadow:
     3px 3px 0 #431448,
     -3px 3px 0 #431448,
     -3px -3px 0 #431448,
     3px -3px 0 #431448;
   border-radius: 10px 100px / 120px;
-  letter-spacing: .2rem;
+  letter-spacing: 0.2rem;
 }
 
 h1 .highlight {
   color: #3dc091;
-}
-
-.App-playlist {
-  justify-content: space-between;
 }
 
 .header,
@@ -63,7 +74,6 @@ h1 .highlight {
     1px -1px 0 #431448;
   position: absolute;
   background-color: hsl(311, 64%, 50%, .5);
-  padding: 15px;
 }
 
 footer {
@@ -72,16 +82,16 @@ footer {
   bottom: 1%;
   margin: 7px;
   color: #513f6a !important;
-  letter-spacing: .2rem;
+  letter-spacing: 0.2rem;
 }
 
-@media (max-width: 690px) {
+@media (max-: 690px) {
 
   .header-links {
     position: fixed;
     right: 2%;
-    top: .5%;
-    z-index: 1000;
+    top: 0.5%;
+    z-index: 10;
     display: flex;
     flex-direction: column;
   }
@@ -95,7 +105,7 @@ footer {
 }
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 668px) {
   body {
     background-image: url('/jammingSM.jpg');
     background-size: cover;
