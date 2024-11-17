@@ -2,9 +2,9 @@ import { Box, Button } from "@mui/material"
 import styles from "./Searchbar.module.css"
 import { useState } from "react"
 
-function SearchBar({ onSearch }: { onSearch: (term: string, seachType: string) => void }) {
+function SearchBar({ onSearch }: { onSearch: (term: string, seachType: "track" | "artist" | "album") => void }) {
     const [term, setTerm] = useState("")
-    const [searchType, setSearchType] = useState("track");
+    const [searchType, setSearchType] = useState<"track" | "artist" | "album">("track");
 
     const handleTermChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
         setTerm(target.value)
@@ -16,7 +16,7 @@ function SearchBar({ onSearch }: { onSearch: (term: string, seachType: string) =
         console.log("passing search type", searchType)
     }
 
-    const selectSearchType = (type: string) => {
+    const selectSearchType = (type: "track" | "artist" | "album") => {
         setSearchType(type);
         console.log("selected search type", type)
     }
