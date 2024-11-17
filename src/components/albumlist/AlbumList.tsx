@@ -6,7 +6,7 @@ export type Album = {
     artist: string;
     uri: string;
     image?: string;
-    type: string;
+    type: 'album';
 }
 
 const AlbumList = (props: {
@@ -28,8 +28,8 @@ const AlbumList = (props: {
                         <Grid item xs={6} sx={{
                             display: 'block',
                         }}>
-                            <Typography variant="h5" sx={{ width: "100%", ml: 4 }}>{album.name}</Typography>
-                            <Typography variant="h5" sx={{ width: "100%", ml: 4 }}> by {album.artist}</Typography>
+                            <Typography variant="h6" sx={{ width: "100%", ml: 4, fontWeight: '600', letterSpacing: 1 }}>{album.name}</Typography>
+                            <Typography variant="subtitle1" sx={{ width: "100%", ml: 4 }}> by {album.artist}</Typography>
                         </Grid>
 
                         <Grid item xs={6} sx={{ textAlign: 'center' }}>
@@ -45,8 +45,8 @@ const AlbumList = (props: {
                                 <Button
                                     onClick={() => props.onAlbumClick(album.id)}
                                     sx={{
-                                        backgroundColor: 'white',
-
+                                        backgroundColor: '#f9f9f9',
+                                        color: '#5e2740',
                                     }}
                                 >
                                     View Tracks
