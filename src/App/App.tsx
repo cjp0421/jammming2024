@@ -13,15 +13,25 @@ interface TrackInterface {
   artist: string;
   album: string;
   id: number;
+  image?: string;
 }
 
 function App() {
-  const [searchResults, setSearchResults] = useState<TrackInterface[]>([])
+  const [searchResults, setSearchResults] = useState<TrackInterface[]>([]);
+  const [playlistName, setPlaylistName] = useState("Example Playlist Name");
+  const [playlistTracks, setPlaylistTracks] = useState<TrackInterface[]>([]);
+  const [currentSearchType, setCurrentSearchType] = useState<"track" | "artist" | "album">("track");
 
-  const [playlistName, setPlaylistName] = useState("Example Playlist Name")
+  const fetchAlbumTracks = async (albumId: string) => {
+    try {
+      const tracks = await Spotify.getAlbumTracks(albumId);
+      setSearchResults(tracks);
+      setCurrentSearchType('track');
+    } catch (error) {
+      console.error("Error fetching album tracks:", error);
+    }
+  };
 
-  const [playlistTracks, setPlaylistTracks] = useState<TrackInterface[]>([])
-  const [currentSearchType, setCurrentSearchType] = useState("track");
 
   const addTrack = (track: TrackType) => {
     const existingTrack = playlistTracks.find(t => t.id === track.id)
@@ -62,7 +72,7 @@ function App() {
     })
   }
 
-  const search = (searchTerm: string, searchType: string) => {
+  const search = (searchTerm: string, searchType: "track" | "artist" | "album") => {
     console.log("App search term:" + searchTerm, "App search type" + searchType);
     setCurrentSearchType(searchType);
     Spotify.search(searchTerm, searchType)
@@ -74,7 +84,7 @@ function App() {
     <Container sx={{
       width: "100%"
     }}>
-      <Box display='flex' justifyContent="space-between" alignItems="center" width="100%">
+      <Box display='flex' justifyContent="space-between" alignItems="center" >
         <Box sx={{
           justifyContent: 'flex-start',
         }}>
@@ -114,9 +124,16 @@ function App() {
           <SearchBar onSearch={search} />
         </Box>
       </Box>
-      <Box display="flex" width="100%" padding={2} gap={2} alignItems="stretch" sx={{ height: '500px' }}>
+      <Box display="flex" width="100%" gap={2} alignItems="stretch" sx={{ height: '500px' }}>
         <Box sx={{ flex: 1, height: '500px' }}>
-          <SearchResults userSearchResults={searchResults} onAdd={addTrack} isRemoval={false} onRemove={removeTrack} />
+          <SearchResults
+            userSearchResults={searchResults}
+            onAdd={addTrack}
+            isRemoval={false}
+            onRemove={removeTrack}
+            onAlbumClick={fetchAlbumTracks}
+            searchType={currentSearchType}
+          />
         </Box>
         {currentSearchType === 'track' &&
           <Box sx={{ flex: 1, height: '500px' }}>
@@ -128,6 +145,7 @@ function App() {
       <footer>
         <a target="_blank" referrerPolicy="no-referrer" href='https://github.com/cjp0421/jammming2024/blob/main/README.md'>About</a>
       </footer>
+
     </Container >
   )
 }
