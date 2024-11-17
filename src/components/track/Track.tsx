@@ -1,4 +1,6 @@
 import { Box } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Track as TrackType } from "../tracklist/Tracklist";
 import styles from "./Track.module.css"
 
@@ -20,9 +22,9 @@ function Track({ isRemoval, onAdd, onRemove, track }: TrackProps) {
 
     const renderAction = () => {
         if (isRemoval) {
-            return <button className={styles["Track-action"]} onClick={passTrack}>+</button>
+            return <button className={styles["Track-action"]} onClick={passTrack}>{<AddIcon />}</button>
         } else {
-            return <button className={styles["Track-action"]} onClick={passTrackToRemove}>-</button>
+            return <button className={styles["Track-action"]} onClick={passTrackToRemove}>{<DeleteIcon />}</button>
         }
 
     }
