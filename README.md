@@ -10,6 +10,10 @@ React + TypeScript + Vite + MUI + Surge
 
 **Features**
 - Connects to a user's Spotify account
+- Allows a user to search Spotify for artists
+- Allows a user to see the albums of an artist with one click
+- Allows a user to search Spotify for albums
+- Allows a user to see the tracks of an album with one click
 - Allows a user to search Spotify for songs by track title
 - Allows a user to add tracks to a playlist
 - Allows a user to name playlists
@@ -17,7 +21,6 @@ React + TypeScript + Vite + MUI + Surge
 
 **Future Work**
 - Build comprehensive tests using Vitest
-- Allow a user to search by artist and album title
 - Improve the website design
 - Allow users to authenticate and log in to the app and Spotify
 
