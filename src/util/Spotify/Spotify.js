@@ -107,6 +107,38 @@ const Spotify = {
 
     },
 
+    async getAlbumTracks(albumId) {
+        try {
+            const albumResponse = await fetch(`${spotifyBaseURL}/v1/albums/${albumId}`, {
+                method: 'GET',
+                headers: { Authorization: `Bearer ${accessToken}` }
+            });
+
+            const albumJSON = await albumResponse.json();
+
+            if (!albumJSON) {
+                console.error("Error fetching album details");
+                return [];
+            }
+
+            const albumImage = albumJSON.images?.[0]?.url || "";
+            const albumName = albumJSON.name;
+
+            return albumJSON.tracks.items.map((track) => ({
+                id: track.id,
+                name: track.name,
+                artist: track.artists[0].name,
+                uri: track.uri,
+                type: 'track',
+                image: albumImage,
+                album: albumName,
+            }));
+        } catch (error) {
+            console.error("Error fetching album tracks: ", error)
+            return [];
+        }
+    },
+
     savePlaylist(name, trackURIs) {
         if (!name || !trackURIs) return;
         const aToken = Spotify.getAccessToken();
