@@ -33,9 +33,9 @@ const Spotify = {
         // console.log(redirectURL)
         console.log("Recieved search type: ", searchType)
 
-        if (!accessToken) {
-            this.getAccessToken();
-        }
+        // if (!accessToken) {
+        //     this.getAccessToken();
+        // }
 
         const query = encodeURIComponent(term)
 

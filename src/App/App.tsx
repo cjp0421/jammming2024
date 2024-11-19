@@ -6,7 +6,7 @@ import SearchBar from '../components/searchbar/SearchBar';
 import { Track as TrackType } from '../components/tracklist/Tracklist';
 // @ts-expect-error Types need to be created for this import
 import { Spotify } from "../util/Spotify/Spotify.js";
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 
 interface TrackInterface {
   name: string;
@@ -22,6 +22,13 @@ function App() {
   const [playlistName, setPlaylistName] = useState("Example Playlist Name");
   const [playlistTracks, setPlaylistTracks] = useState<TrackInterface[]>([]);
   const [currentSearchType, setCurrentSearchType] = useState<"track" | "artist" | "album">("track");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogin: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.preventDefault();
+    Spotify.getAccessToken();
+    setIsLoggedIn(true);
+  }
 
   const fetchAlbumTracks = async (albumId: string) => {
     try {
@@ -85,6 +92,12 @@ function App() {
 
   const search = (searchTerm: string, searchType: "track" | "artist" | "album") => {
     console.log("App search term:" + searchTerm, "App search type" + searchType);
+
+    if (!isLoggedIn) {
+      alert("Please log in first.")
+      return;
+    }
+
     setCurrentSearchType(searchType);
     Spotify.search(searchTerm, searchType)
       .then((result: React.SetStateAction<{ name: string; artist: string; album: string; id: number; artistId: string }[]>) => setSearchResults(result))
@@ -121,6 +134,7 @@ function App() {
             Github</a>
           <a
             className={styles["header-link"]}
+            onClick={(e) => e.preventDefault()}
             href='#'>Portfolio</a>
           <a
             className={styles["header-link"]}
@@ -131,6 +145,18 @@ function App() {
         </Box>
       </Box>
       <Box display='flex' width='100%'>
+        <Button
+          type="button"
+          onClick={handleLogin}
+          sx={{
+            backgroundColor: 'white',
+            fontSize: 'small',
+            width: 'fit-content',
+            height: 'fit-content'
+          }}
+        >
+          {isLoggedIn ? "Connected to Spotify!" : "Click here to connect to Spotify"}
+        </Button>
         <Box sx={{ flex: 1 }}>
           <SearchBar onSearch={search} />
         </Box>
