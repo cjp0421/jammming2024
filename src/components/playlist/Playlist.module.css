@@ -43,3 +43,7 @@
 ::-webkit-scrollbar {
     background: transparent;
 }
+
+.track-artist:hover {
+    text-decoration: none;
+}

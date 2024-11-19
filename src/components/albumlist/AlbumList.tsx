@@ -12,6 +12,8 @@ export type Album = {
 const AlbumList = (props: {
     albums: Album[];
     onAlbumClick: (albumId: string) => void;
+    onArtistClick: (artistId: string) => void;
+    isArtistClickable?: boolean;
 }) => {
     return (
         <Box>

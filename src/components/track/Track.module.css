@@ -17,3 +17,7 @@
 .Track-action:hover {
     color: rgba(265, 265, 265, .7);
 }
+
+.track-artist:hover {
+    text-decoration: underline;
+}

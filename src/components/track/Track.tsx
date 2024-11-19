@@ -11,7 +11,7 @@ export type TrackProps = {
     track: TrackType;
 }
 
-function Track({ isRemoval, onAdd, onRemove, track }: TrackProps) {
+function Track({ isRemoval, onAdd, onRemove, track, onArtistClick, isArtistClickable }: TrackProps & { onArtistClick: (artistId: string) => void; isArtistClickable?: boolean; }) {
     const passTrack = () => {
         onAdd(track)
     }
@@ -37,7 +37,20 @@ function Track({ isRemoval, onAdd, onRemove, track }: TrackProps) {
                 <img src={track.image} style={{
                     maxWidth: '65px'
                 }} />
-                <p>{track.artist} | {track.album}</p>
+                <p>
+                    {
+                        isArtistClickable ? (
+                            <span className={styles["track-artist"]}
+                                onClick={() => onArtistClick(track.artistId)}
+                                style={{
+                                    cursor: 'pointer'
+                                }}
+                            >{track.artist}
+                            </span>
+                        ) : (
+                            track.artist)} | {track.album}
+
+                </p>
             </div>
 
             {renderAction()}

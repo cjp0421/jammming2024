@@ -14,6 +14,7 @@ interface TrackInterface {
   album: string;
   id: number;
   image?: string;
+  artistId: string;
 }
 
 function App() {
@@ -86,7 +87,7 @@ function App() {
     console.log("App search term:" + searchTerm, "App search type" + searchType);
     setCurrentSearchType(searchType);
     Spotify.search(searchTerm, searchType)
-      .then((result: React.SetStateAction<{ name: string; artist: string; album: string; id: number; }[]>) => setSearchResults(result))
+      .then((result: React.SetStateAction<{ name: string; artist: string; album: string; id: number; artistId: string }[]>) => setSearchResults(result))
 
   }
 
@@ -144,17 +145,34 @@ function App() {
             onAlbumClick={fetchAlbumTracks}
             searchType={currentSearchType}
             onArtistClick={fetchArtistAlbums}
+            isArtistClickable={true}
           />
         </Box>
         {currentSearchType === 'track' &&
           <Box sx={{ flex: 1, height: '500px' }}>
-            <Playlist playlistName={playlistName} playlistTracks={playlistTracks} onRemove={removeTrack} onAdd={addTrack} isRemoval={false} onNameChange={updatePlaylistName} onSave={savePlaylist} />
+            <Playlist
+              playlistName={playlistName}
+              playlistTracks={playlistTracks}
+              onRemove={removeTrack}
+              onAdd={addTrack}
+              isRemoval={false}
+              onNameChange={updatePlaylistName}
+              onSave={savePlaylist}
+              onArtistClick={fetchArtistAlbums}
+              isArtistClickable={true}
+            />
           </Box>
         }
       </Box>
 
       <footer>
-        <a target="_blank" referrerPolicy="no-referrer" href='https://github.com/cjp0421/jammming2024/blob/main/README.md'>About</a>
+        <a
+          target="_blank"
+          referrerPolicy="no-referrer"
+          href='https://github.com/cjp0421/jammming2024/blob/main/README.md'
+        >
+          About
+        </a>
       </footer>
 
     </Container >

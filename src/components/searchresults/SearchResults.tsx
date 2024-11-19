@@ -12,6 +12,7 @@ function SearchResults({ userSearchResults, onAdd, onRemove, onAlbumClick, searc
     onAlbumClick: (albumId: string) => void
     onArtistClick: (artistId: string) => void
     searchType: "track" | "album" | "artist";
+    isArtistClickable: boolean;
 }) {
 
     let content;
@@ -24,6 +25,8 @@ function SearchResults({ userSearchResults, onAdd, onRemove, onAlbumClick, searc
                     isRemoval={true}
                     onAdd={onAdd}
                     onRemove={onRemove}
+                    onArtistClick={onArtistClick}
+                    isArtistClickable={true}
                 />
             );
             break;
@@ -32,6 +35,8 @@ function SearchResults({ userSearchResults, onAdd, onRemove, onAlbumClick, searc
                 <AlbumList
                     albums={userSearchResults as Album[]}
                     onAlbumClick={onAlbumClick}
+                    onArtistClick={onArtistClick}
+                    isArtistClickable={false}
                 />
             );
             break;
