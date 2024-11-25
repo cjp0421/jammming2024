@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './App.module.css'
 import SearchResults from "../components/searchresults/SearchResults"
 import Playlist from '../components/playlist/Playlist';
@@ -23,6 +23,13 @@ function App() {
   const [playlistTracks, setPlaylistTracks] = useState<TrackInterface[]>([]);
   const [currentSearchType, setCurrentSearchType] = useState<"track" | "artist" | "album">("track");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = Spotify.getAccessToken();
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, [])
 
   const handleLogin: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
