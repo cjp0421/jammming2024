@@ -69,35 +69,8 @@ const Spotify = {
     isAuthenticated,
     beginLogin,
     getAccessToken,
-    // getAccessToken() {
-    //     if (accessToken) return accessToken;
-
-    //     const tokenInURL = window.location.href.match(/access_token=([^&]*)/);
-    //     const expiryTime = window.location.href.match(/expires_in=([^&]*)/);
-
-    //     if (tokenInURL && expiryTime) {
-    //         accessToken = tokenInURL[1];
-    //         const expiresIn = Number(expiryTime[1])
-
-    //         window.setTimeout(() => (accessToken = ""), expiresIn * 1000)
-    //         window.history.pushState("Access token", null, "/")
-    //         return accessToken
-    //     }
-
-    //     const redirect = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&redirect_uri=${redirectURL}`;
-
-    //     window.location = redirect;
-    // },
 
     async search(term: string, searchType: string) {
-        // console.log(accessToken)
-        // console.log(clientId)
-        // console.log(redirectURL)
-        // console.log("Recieved search type: ", searchType)
-
-        // if (!accessToken) {
-        //     this.getAccessToken();
-        // }
 
         const query = encodeURIComponent(term)
 
@@ -277,6 +250,5 @@ type SpotifyAlbum = {
     name: string;
     images: SpotifyImage[]
 }
-
 
 export { Spotify }
