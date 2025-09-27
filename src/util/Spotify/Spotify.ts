@@ -1,7 +1,6 @@
 let accessToken: string | null = null;
 
 const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-// const redirectURL = import.meta.env.VITE_SPOTIFY_REDIRECT_URI;
 // const redirectURL = `http://localhost:5173`
 const redirectURL = import.meta.env.VITE_SPOTIFY_REDIRECT_URI || window.location.origin;
 
