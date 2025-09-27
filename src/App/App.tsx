@@ -4,8 +4,7 @@ import SearchResults from "../components/searchresults/SearchResults"
 import Playlist from '../components/playlist/Playlist';
 import SearchBar from '../components/searchbar/SearchBar';
 import { Track as TrackType } from '../components/tracklist/Tracklist';
-// @ts-expect-error Types need to be created for this import
-import { Spotify } from "../util/Spotify/Spotify.js";
+import { Spotify } from "../util/Spotify/Spotify.ts";
 import { Box, Button, Container, Typography } from '@mui/material';
 
 interface TrackInterface {
@@ -15,6 +14,7 @@ interface TrackInterface {
   id: number;
   image?: string;
   artistId: string;
+  uri: string;
 }
 
 function App() {
@@ -91,7 +91,7 @@ function App() {
     const trackURIs = playlistTracks.map((t: TrackType) => t.uri)
 
     console.log(trackURIs);
-    Spotify.savePlaylist(playlistName, trackURIs).then(() => {
+    Spotify.savePlaylist(playlistName, trackURIs)?.then(() => {
       setPlaylistName("New Playlist Name")
       setPlaylistTracks([])
     })
@@ -107,7 +107,7 @@ function App() {
 
     setCurrentSearchType(searchType);
     Spotify.search(searchTerm, searchType)
-      .then((result: React.SetStateAction<{ name: string; artist: string; album: string; id: number; artistId: string }[]>) => setSearchResults(result))
+      .then((result: React.SetStateAction<{ name: string; artist: string; album: string; id: number; artistId: string, uri: string }[]>) => setSearchResults(result))
 
   }
 

@@ -7,7 +7,7 @@ export type Track = {
     artistId: string;
     album: string;
     id: number;
-    uri?: string;
+    uri: string;
     image?: string;
     type?: string;
 }
