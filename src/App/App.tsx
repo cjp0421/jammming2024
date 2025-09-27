@@ -25,16 +25,13 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = Spotify.getAccessToken();
-    if (token) {
-      setIsLoggedIn(true);
-    }
+    Spotify.initAuth();
+    setIsLoggedIn(!!Spotify.getAccessToken())
   }, [])
 
   const handleLogin: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
-    Spotify.getAccessToken();
-    setIsLoggedIn(true);
+    Spotify.beginLogin();
   }
 
   const fetchAlbumTracks = async (albumId: string) => {
@@ -87,7 +84,10 @@ function App() {
   }
 
   const savePlaylist = () => {
-    console.log("Save clicked")
+    const token = Spotify.getAccessToken();
+    if (!token) {
+      alert("Sign in with Spotify to save playlists.")
+    }
     const trackURIs = playlistTracks.map((t: TrackType) => t.uri)
 
     console.log(trackURIs);
