@@ -28,7 +28,7 @@ React + TypeScript + Vite + MUI + Surge
 - Improve the website design
 
 **Resources** \
-https://surge.sh/ \
+https://www.netlify.com/ \
 https://www.markdownguide.org/ \
 https://www.youtube.com/watch?v=BeZUvaACVEA \
 https://www.favicon-generator.org/ \
@@ -36,5 +36,6 @@ https://pixabay.com/illustrations/headphones-smile-music-young-happy-4788350/ \
 https://developer.spotify.com/documentation/ \
 https://developer.spotify.com/documentation/web-api/reference/search \
 https://reine.hashnode.dev/how-to-connect-your-react-vitejs-app-to-spotifys-api \
+https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow \
 https://www.youtube.com/watch?v=BeZUvaACVEA
 
