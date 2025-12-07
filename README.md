@@ -21,7 +21,8 @@ React + TypeScript + Vite + MUI + Netlify
 
 **Current Work**
 - Allow users to authenticate and log in to the app and Spotify
-    - updating login flow to use PKCE
+    - updating login flow to use PKCE to connect to Spotify account
+- Updating MUI version
 
 **Future Work**
 - Build comprehensive tests using Vitest
@@ -37,5 +38,6 @@ https://developer.spotify.com/documentation/ \
 https://developer.spotify.com/documentation/web-api/reference/search \
 https://reine.hashnode.dev/how-to-connect-your-react-vitejs-app-to-spotifys-api \
 https://developer.spotify.com/documentation/web-api/tutorials/code-pkce-flow \
+https://developer.spotify.com/documentation/web-api/concepts/redirect_uri \
 https://www.youtube.com/watch?v=BeZUvaACVEA
 
