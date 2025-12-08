@@ -7,6 +7,7 @@ import { Spotify } from "../util/Spotify/Spotify.ts";
 import { Box, Button, Grid } from '@mui/material';
 import PageHeading from '../components/PageHeading.tsx';
 import './App.css';
+import Footer from '../components/Footer.tsx';
 
 interface TrackInterface {
   name: string;
@@ -120,11 +121,11 @@ function App() {
       <PageHeading />
       <Box
         sx={{
-          mt: 10,
+          mt: 7,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 10,
+          gap: 5,
           width: "100%",
         }}
       >
@@ -179,15 +180,7 @@ function App() {
         }
       </Grid>
 
-      <footer>
-        <a
-          target="_blank"
-          referrerPolicy="no-referrer"
-          href='https://github.com/cjp0421/jammming2024/blob/main/README.md'
-        >
-          About
-        </a>
-      </footer>
+      <Footer />
     </>
   )
 }
