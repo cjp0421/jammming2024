@@ -1,8 +1,7 @@
 import { Box } from "@mui/material";
-import Tracklist, { Track } from "../tracklist/Tracklist";
-import styles from "./SearchResults.module.css"
-import AlbumList, { Album } from "../albumlist/AlbumList";
-import ArtistList, { Artist } from "../artistlist/ArtistList";
+import Tracklist, { Track } from "./Tracklist";
+import AlbumList, { Album } from "./AlbumList";
+import ArtistList, { Artist } from "./ArtistList";
 
 function SearchResults({ userSearchResults, onAdd, onRemove, onAlbumClick, searchType, onArtistClick }: {
     userSearchResults: Track[] | Album[] | Artist[],
@@ -54,8 +53,8 @@ function SearchResults({ userSearchResults, onAdd, onRemove, onAlbumClick, searc
     }
 
     return (
-        <Box className={styles.SearchResults}>
-            <h2 style={{ borderBottom: '1px solid', fontFamily: 'sans-serif' }}>
+        <Box>
+            <h2 >
                 Search Results
             </h2>
             {

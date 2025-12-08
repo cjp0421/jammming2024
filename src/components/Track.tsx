@@ -1,8 +1,7 @@
 import { Box } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Track as TrackType } from "../tracklist/Tracklist";
-import styles from "./Track.module.css"
+import { Track as TrackType } from "./Tracklist";
 
 export type TrackProps = {
     isRemoval: boolean;
@@ -22,29 +21,24 @@ function Track({ isRemoval, onAdd, onRemove, track, onArtistClick, isArtistClick
 
     const renderAction = () => {
         if (isRemoval) {
-            return <button className={styles["Track-action"]} onClick={passTrack}>{<AddIcon />}</button>
+            return <button onClick={passTrack}>{<AddIcon />}</button>
         } else {
-            return <button className={styles["Track-action"]} onClick={passTrackToRemove}>{<DeleteIcon />}</button>
+            return <button onClick={passTrackToRemove}>{<DeleteIcon />}</button>
         }
 
     }
 
 
     return (
-        <Box className={styles.Track}>
-            <div className={styles["Track-information"]}>
+        <Box>
+            <div>
                 <h3>{track.name}</h3>
-                <img src={track.image} style={{
-                    maxWidth: '65px'
-                }} />
+                <img src={track.image} />
                 <p>
                     {
                         isArtistClickable ? (
-                            <span className={styles["track-artist"]}
+                            <span
                                 onClick={() => onArtistClick(track.artistId)}
-                                style={{
-                                    cursor: 'pointer'
-                                }}
                             >{track.artist}
                             </span>
                         ) : (
