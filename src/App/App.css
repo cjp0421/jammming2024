@@ -1,6 +1,7 @@
 body {
-   background-image: url('/public/headphoneBackground.png');
+   background-image: url('/headphoneBackground.png');
    background-size: contain;
+   background-attachment: fixed;
 }
 
 /* ───────────────────────────────

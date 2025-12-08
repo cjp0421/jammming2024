@@ -118,60 +118,76 @@ function App() {
   return (
     <>
       <PageHeading />
-      <Grid
-        container
+      <Box
+        sx={{
+          mt: 10,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 10,
+          width: "100%",
+        }}
       >
-        <Box display='flex' width='100%'>
-          <Button
-            type="button"
-            onClick={handleLogin}
-          >
-            {isLoggedIn ? "Connected to Spotify!" : "Click here to connect to Spotify"}
-          </Button>
-          <Box>
-            <SearchBar onSearch={search} />
-          </Box>
+        <Button
+          type="button"
+          onClick={handleLogin}
+          variant="contained"
+          sx={{
+            borderRadius: 2,
+            textTransform: "none",
+            px: 3,
+            py: 1.5,
+            backgroundColor: isLoggedIn ? '#9f21a3' : '#1e131c',
+            mt: 7
+          }}
+        >
+          {isLoggedIn ? "Connected to Spotify!" : "Click here to connect to Spotify"}
+        </Button>
+
+        <Box>
+          <SearchBar onSearch={search} />
         </Box>
-        <Box display="flex" width="100%" gap={2} alignItems="stretch">
-          <Box>
-            <SearchResults
-              userSearchResults={searchResults}
+      </Box>
+
+      <Grid>
+        <Grid>
+          <SearchResults
+            userSearchResults={searchResults}
+            onAdd={addTrack}
+            isRemoval={false}
+            onRemove={removeTrack}
+            onAlbumClick={fetchAlbumTracks}
+            searchType={currentSearchType}
+            onArtistClick={fetchArtistAlbums}
+            isArtistClickable={true}
+          />
+        </Grid>
+        {currentSearchType === 'track' &&
+          <Grid>
+            <Playlist
+              playlistName={playlistName}
+              playlistTracks={playlistTracks}
+              onRemove={removeTrack}
               onAdd={addTrack}
               isRemoval={false}
-              onRemove={removeTrack}
-              onAlbumClick={fetchAlbumTracks}
-              searchType={currentSearchType}
+              onNameChange={updatePlaylistName}
+              onSave={savePlaylist}
               onArtistClick={fetchArtistAlbums}
               isArtistClickable={true}
             />
-          </Box>
-          {currentSearchType === 'track' &&
-            <Box>
-              <Playlist
-                playlistName={playlistName}
-                playlistTracks={playlistTracks}
-                onRemove={removeTrack}
-                onAdd={addTrack}
-                isRemoval={false}
-                onNameChange={updatePlaylistName}
-                onSave={savePlaylist}
-                onArtistClick={fetchArtistAlbums}
-                isArtistClickable={true}
-              />
-            </Box>
-          }
-        </Box>
+          </Grid>
+        }
+      </Grid>
 
-        <footer>
-          <a
-            target="_blank"
-            referrerPolicy="no-referrer"
-            href='https://github.com/cjp0421/jammming2024/blob/main/README.md'
-          >
-            About
-          </a>
-        </footer>
-      </Grid >
+      <footer>
+        <a
+          target="_blank"
+          referrerPolicy="no-referrer"
+          href='https://github.com/cjp0421/jammming2024/blob/main/README.md'
+        >
+          About
+        </a>
+      </footer>
     </>
   )
 }
