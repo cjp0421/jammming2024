@@ -1,4 +1,7 @@
-import { AppBar, Grid, Link, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Grid, Link, Toolbar, Typography } from "@mui/material";
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import LanguageIcon from '@mui/icons-material/Language';
 
 export default function PageHeading() {
     return (
@@ -23,7 +26,7 @@ export default function PageHeading() {
                     <Grid
                         container
                         sx={{
-                            gap: 5
+                            gap: { 'md': 5, 'xs': 1.5 }
                         }}
                     >
                         <Link
@@ -33,10 +36,20 @@ export default function PageHeading() {
                             href="https://github.com/cjp0421/jammming2024"
                             sx={{
                                 color: '#fff',
-                                textDecoration: 'none'
+                                textDecoration: 'none',
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 0.6,
                             }}
                         >
-                            Github
+                            <GitHubIcon fontSize="small" />
+                            <Box
+                                sx={{
+                                    display: { xs: "none", md: "inline" }
+                                }}
+                            >
+                                GitHub
+                            </Box>
                         </Link>
                         <Link
                             className="header-link"
@@ -45,9 +58,19 @@ export default function PageHeading() {
                             sx={{
                                 color: '#fff',
                                 textDecoration: 'none',
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 0.6,
                             }}
                         >
-                            Portfolio
+                            <LanguageIcon fontSize="small" />
+                            <Box
+                                sx={{
+                                    display: { xs: "none", md: "inline" }
+                                }}
+                            >
+                                Portfolio
+                            </Box>
                         </Link>
                         <Link
                             className="header-link"
@@ -56,10 +79,21 @@ export default function PageHeading() {
                             href="https://www.linkedin.com/in/carol-joy-pedersen"
                             sx={{
                                 color: '#fff',
-                                textDecoration: 'none'
+                                textDecoration: 'none',
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 0.6,
                             }}
                         >
-                            LinkedIn
+                            <LinkedInIcon fontSize="small" />
+                            <Box
+                                sx={{
+                                    display: { xs: "none", md: "inline" }
+                                }}
+                            >
+
+                                LinkedIn
+                            </Box>
                         </Link>
                     </Grid>
                 </Toolbar>
