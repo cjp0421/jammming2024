@@ -3,7 +3,13 @@ import { generatePkcePair } from "../pkce";
 let accessToken: string | null = null;
 
 const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-const redirectURL = window.location.hostname === "127.0.0.1"
+
+const isLocal =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
+
+
+const redirectURL = isLocal
     ? import.meta.env.VITE_SPOTIFY_DEV_REDIRECT_URI
     : import.meta.env.VITE_SPOTIFY_PROD_REDIRECT_URI;
 
