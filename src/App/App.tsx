@@ -4,10 +4,11 @@ import Playlist from '../components/Playlist.tsx';
 import SearchBar from '../components/SearchBar.tsx';
 import { Track as TrackType } from '../components/Tracklist.tsx';
 import { Spotify } from "../util/Spotify/Spotify.ts";
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import PageHeading from '../components/PageHeading.tsx';
 import './App.css';
 import Footer from '../components/Footer.tsx';
+import ConnectButton from '../components/ConnectButton.tsx';
 
 interface TrackInterface {
   name: string;
@@ -129,21 +130,10 @@ function App() {
           width: "100%",
         }}
       >
-        <Button
-          type="button"
-          onClick={handleLogin}
-          variant="contained"
-          sx={{
-            borderRadius: 2,
-            textTransform: "none",
-            px: 3,
-            py: 1.5,
-            backgroundColor: isLoggedIn ? '#9f21a3' : '#1e131c',
-            mt: 7
-          }}
-        >
-          {isLoggedIn ? "Connected to Spotify!" : "Click here to connect to Spotify"}
-        </Button>
+        <ConnectButton
+          isLoggedIn={isLoggedIn}
+          handleLogin={handleLogin}
+        />
 
         <Box>
           <SearchBar onSearch={search} />
