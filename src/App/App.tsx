@@ -4,7 +4,7 @@ import Playlist from '../components/Playlist.tsx';
 import SearchBar from '../components/SearchBar.tsx';
 import { Track as TrackType } from '../components/Tracklist.tsx';
 import { Spotify } from "../util/Spotify/Spotify.ts";
-import { Box, Button, Container } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import PageHeading from '../components/PageHeading.tsx';
 import './App.css';
 
@@ -118,9 +118,9 @@ function App() {
   return (
     <>
       <PageHeading />
-      <Container>
-
-
+      <Grid
+        container
+      >
         <Box display='flex' width='100%'>
           <Button
             type="button"
@@ -171,7 +171,7 @@ function App() {
             About
           </a>
         </footer>
-      </Container >
+      </Grid >
     </>
   )
 }

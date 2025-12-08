@@ -9,7 +9,7 @@ This project was completed as part of the Codecademy course [Create a Front-end 
 React + TypeScript + Vite + MUI + Netlify
 
 **Features**
-- Connects to a user's Spotify account
+- Connects to a user's Spotify account using PKCE authorization flow
 - Allows a user to search Spotify for artists
 - Allows a user to see the albums of an artist with one click
 - Allows a user to search Spotify for albums
@@ -20,15 +20,13 @@ React + TypeScript + Vite + MUI + Netlify
 - Allows a user to save playlists to their Spotify account
 
 **Current Work**
-- Allow users to authenticate and log in to the app and Spotify
-    - updating login flow to use PKCE to connect to Spotify account
-- Updating MUI version
+- Redesigning application styles to improve user experience, modernize, and more effectively use MUI
 
 **Future Work**
 - Build comprehensive tests using Vitest
-- Improve the website design
 
 **Resources** \
+https://pixabay.com/illustrations/headphones-music-pattern-seamless-6636208/ \
 https://www.netlify.com/ \
 https://www.markdownguide.org/ \
 https://www.youtube.com/watch?v=BeZUvaACVEA \
