@@ -25,9 +25,13 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    Spotify.initAuth();
-    setIsLoggedIn(!!Spotify.getAccessToken())
-  }, [])
+    async function load() {
+      await Spotify.initAuth();
+      const token = await Spotify.getAccessToken();
+      setIsLoggedIn(!!token);
+    }
+    load();
+  }, []);
 
   const handleLogin: React.MouseEventHandler<HTMLButtonElement> = (event) => {
     event.preventDefault();
@@ -90,7 +94,6 @@ function App() {
     }
     const trackURIs = playlistTracks.map((t: TrackType) => t.uri)
 
-    console.log(trackURIs);
     Spotify.savePlaylist(playlistName, trackURIs)?.then(() => {
       setPlaylistName("New Playlist Name")
       setPlaylistTracks([])

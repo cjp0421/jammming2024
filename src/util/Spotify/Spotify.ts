@@ -1,43 +1,127 @@
+import { generatePkcePair } from "../pkce";
+
 let accessToken: string | null = null;
 
 const clientId = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
-// const redirectURL = `http://localhost:5173`
-const redirectURL = import.meta.env.VITE_SPOTIFY_REDIRECT_URI || window.location.origin;
+const redirectURL = window.location.hostname === "127.0.0.1"
+    ? import.meta.env.VITE_SPOTIFY_DEV_REDIRECT_URI
+    : import.meta.env.VITE_SPOTIFY_PROD_REDIRECT_URI;
 
 const spotifyBaseURL = `https://api.spotify.com`;
 
-function parseTokenFromHash(): string | null {
-    const hash = window.location.hash.startsWith("#") ? window.location.hash.slice(1)
-        : window.location.hash;
-    const params = new URLSearchParams(hash);
-    const token = params.get("access_token");
-    const expiresIn = params.get("expires_in");
+async function handleRedirectCallback(): Promise<boolean> {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("code");
 
-    if (!token || !expiresIn) return null;
+    if (!code) return false;
 
-    const expiryMs = Date.now() + Number(expiresIn) * 1000;
+    const verifier = localStorage.getItem('pkce_verifier');
+    if (!verifier) {
+        console.error("Missing PKCE code verifier");
+        return false;
+    }
 
-    sessionStorage.setItem("spotify_access_token", token);
+    try {
+        const body = new URLSearchParams({
+            client_id: clientId,
+            grant_type: "authorization_code",
+            code,
+            redirect_uri: redirectURL,
+            code_verifier: verifier
+        });
+
+        const response = await fetch("https://accounts.spotify.com/api/token", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body
+        })
+
+        const tokenData = await response.json();
+
+        if (tokenData.error) {
+            console.error("Token exchange failed:", tokenData);
+            return false;
+        }
+
+        accessToken = tokenData.access_token;
+        sessionStorage.setItem("spotify_access_token", accessToken ?? "");
+
+        const expiryMs = Date.now() + tokenData.expires_in * 1000;
+        sessionStorage.setItem("spotify_access_expiry", String(expiryMs));
+
+        if (tokenData.refresh_token) {
+            sessionStorage.setItem("spotify_refresh_token", tokenData.refresh_token);
+        }
+
+        window.history.replaceState({}, document.title, "/");
+        return true;
+    } catch (err) {
+        console.error("PKCE redirect handler failed:", err);
+        return false;
+    }
+}
+
+async function initAuth(): Promise<void> {
+    const handled = await handleRedirectCallback();
+
+    if (handled && accessToken) return;
+
+    const stored = sessionStorage.getItem("spotify_access_token") || null;
+    if (stored) accessToken = stored;
+}
+
+async function getAccessToken() {
+    if (accessToken) {
+        const expiryString = sessionStorage.getItem("spotify_access_expiry");
+        if (!expiryString) return null;
+
+        const expiry = Number(expiryString);
+        if (Date.now() < expiry) {
+            return accessToken;
+        }
+    }
+
+    const refreshToken = sessionStorage.getItem("spotify_refresh_token");
+    if (!refreshToken) {
+        console.warn("No refresh token available.");
+        return null;
+    }
+
+    console.log("Refreshing Spotify token...");
+
+    const body = new URLSearchParams({
+        client_id: clientId,
+        grant_type: "refresh_token",
+        refresh_token: refreshToken
+    });
+
+    const response = await fetch("https://accounts.spotify.com/api/token", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body
+    });
+
+    const tokenData = await response.json();
+
+    if (tokenData.error) {
+        console.error("Refresh failed:", tokenData);
+        return null;
+    }
+
+    accessToken = tokenData.access_token;
+    sessionStorage.setItem("spotify_access_token", accessToken ?? "")
+
+    const expiryMs = Date.now() + tokenData.expires_in * 1000;
     sessionStorage.setItem("spotify_access_expiry", String(expiryMs));
 
-    window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
-    return token;
-}
+    if (tokenData.refresh_token) {
+        sessionStorage.setItem("spotify_refresh_token", tokenData.refresh_token ?? "");
+    }
 
-function loadTokenFromStorage(): string | null {
-    const token = sessionStorage.getItem("spotify_access_token");
-    const expiry = Number(sessionStorage.getItem("spotify_access_expiry") || 0);
-    if (!token || !expiry || Date.now() > expiry) return null;
-    return token;
-}
-
-function initAuth() {
-    accessToken = parseTokenFromHash() || loadTokenFromStorage();
-}
-
-function getAccessToken() {
-    if (accessToken) return accessToken;
-    accessToken = parseTokenFromHash() || loadTokenFromStorage();
     return accessToken;
 }
 
@@ -45,23 +129,28 @@ function isAuthenticated() {
     return !!accessToken;
 }
 
-function beginLogin(scopes: string = "playlist-modify-public") {
+async function beginLogin(scopes: string = "playlist-modify-public") {
     sessionStorage.setItem(
         "post_login_redirect",
         window.location.pathname + window.location.search
     );
 
-    const url = new URL("https://accounts.spotify.com/authorize")
+    const { verifier, challenge } = await generatePkcePair();
 
-    url.searchParams.set("client_id", clientId);
+    localStorage.setItem("pkce_verifier", verifier);
 
-    url.searchParams.set("response_type", "token");
+    const authParams = new URLSearchParams({
+        client_id: clientId,
+        response_type: "code",
+        redirect_uri: redirectURL,
+        code_challenge_method: "S256",
+        code_challenge: challenge,
+        scope: scopes
+    });
 
-    url.searchParams.set("redirect_uri", redirectURL);
-
-    url.searchParams.set("scope", scopes);
-
-    window.location.assign(url.toString())
+    window.location.assign(
+        `https://accounts.spotify.com/authorize?${authParams.toString()}`
+    )
 }
 
 const Spotify = {
@@ -91,21 +180,38 @@ const Spotify = {
                 break;
         }
 
-        const response = await fetch(`${spotifyBaseURL}/v1/search?type=${apiSearchType}&q=${query}`, {
-            method: 'GET',
-            headers: { Authorization: `Bearer ${accessToken}` }
-        });
+        const token = await Spotify.getAccessToken();
 
-        console.log(apiSearchType)
+        if (!token) {
+            console.error("No access token available for search");
+            return [];
+        }
+
+
+        // const response = await fetch(`${spotifyBaseURL}/v1/search?type=${apiSearchType}&q=${query}`, {
+        //     method: 'GET',
+        //     headers: { Authorization: `Bearer ${accessToken}` }
+        // });
+
+        const response = await fetch(
+            `${spotifyBaseURL}/v1/search?type=${apiSearchType}&q=${query}`,
+            {
+                method: "GET",
+                headers: { Authorization: `Bearer ${token}` }
+            }
+        );
+
+        // console.log(apiSearchType)
         const jsonResponse = await response.json();
-        console.log(jsonResponse)
+        // console.log(jsonResponse)
 
-        if (!jsonResponse) {
-            console.error("Response Error");
+        if (jsonResponse.error) {
+            console.error("Spotify API error:", jsonResponse.error);
+            return [];
         }
 
         if (apiSearchType.includes("track") && jsonResponse.tracks?.items?.length > 0) {
-            return jsonResponse.tracks?.items?.map(({id, name, artists, album, uri}:{id:string, name: string, artists: SpotifyArtist[], album: SpotifyAlbum, uri: string}) => ({
+            return jsonResponse.tracks?.items?.map(({ id, name, artists, album, uri }: { id: string, name: string, artists: SpotifyArtist[], album: SpotifyAlbum, uri: string }) => ({
                 id: id,
                 name: name,
                 artist: artists[0].name,
@@ -116,7 +222,7 @@ const Spotify = {
                 image: album.images[0].url
             }));
         } else if (apiSearchType.includes("artist") && jsonResponse.artists?.items?.length > 0) {
-            return jsonResponse.artists?.items?.map(({id, name, genres, followers, uri, external_urls, images}:{id: string, name: string, genres: string[], followers: {total: number}, uri: string, external_urls: {spotify: string}, images: SpotifyImage[]}) => ({
+            return jsonResponse.artists?.items?.map(({ id, name, genres, followers, uri, external_urls, images }: { id: string, name: string, genres: string[], followers: { total: number }, uri: string, external_urls: { spotify: string }, images: SpotifyImage[] }) => ({
                 id: id,
                 name: name,
                 genres: genres,
@@ -127,7 +233,7 @@ const Spotify = {
                 image: images[0]?.url || ""
             }))
         } else if (apiSearchType.includes("album") && jsonResponse.albums?.items?.length > 0) {
-            return jsonResponse.albums?.items?.map(({id, name, artists, uri, images}:{id: string, name: string, artists: SpotifyArtist[], uri: string, images: SpotifyImage[]}) => ({
+            return jsonResponse.albums?.items?.map(({ id, name, artists, uri, images }: { id: string, name: string, artists: SpotifyArtist[], uri: string, images: SpotifyImage[] }) => ({
                 id: id,
                 name: name,
                 artist: artists[0].name,
@@ -160,7 +266,7 @@ const Spotify = {
             const albumImage = albumJSON.images?.[0]?.url || "";
             const albumName = albumJSON.name;
 
-            return albumJSON.tracks.items.map(({id, name, artists, uri}:{id: string, name: string, artists: SpotifyArtist[], uri: string}) => ({
+            return albumJSON.tracks.items.map(({ id, name, artists, uri }: { id: string, name: string, artists: SpotifyArtist[], uri: string }) => ({
                 id: id,
                 name: name,
                 artist: artists[0].name,
@@ -192,7 +298,7 @@ const Spotify = {
 
             console.log(artistJSON)
 
-            return artistJSON.items.map(({id, name, artists, uri, images }:{id: string, name: string, artists: SpotifyArtist[], uri: string, images: SpotifyImage[]}) => ({
+            return artistJSON.items.map(({ id, name, artists, uri, images }: { id: string, name: string, artists: SpotifyArtist[], uri: string, images: SpotifyImage[] }) => ({
                 id: id,
                 name: name,
                 artist: artists[0].name,
@@ -207,9 +313,9 @@ const Spotify = {
         }
     },
 
-    savePlaylist(name: string, trackURIs: string[]) {
+    async savePlaylist(name: string, trackURIs: string[]) {
         if (!name || !trackURIs) return;
-        const aToken = Spotify.getAccessToken();
+        const aToken = await Spotify.getAccessToken();
         const header = { Authorization: `Bearer ${aToken}` };
         let userId;
         let playlistId;
