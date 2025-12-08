@@ -17,11 +17,13 @@ export default function PageHeading() {
                     <Typography
                         variant="h1"
                         sx={{
-                            fontSize: '3rem',
+                            fontSize: '2.5rem',
                             flexGrow: 1,
-                            color: '#fff'
+                            color: '#fff',
+                            fontFamily: '"Monoton", cursive',
+                            letterSpacing: "2px",
                         }}>
-                        Ja<span className="highlight">mmm</span>ing
+                        Jamming Playlists
                     </Typography>
                     <Grid
                         container

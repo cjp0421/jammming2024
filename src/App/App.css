@@ -2,6 +2,7 @@ body {
    background-image: url('/headphoneBackground.png');
    background-size: contain;
    background-attachment: fixed;
+   font-family: "Rubik", sans-serif;
 }
 
 /* ───────────────────────────────
