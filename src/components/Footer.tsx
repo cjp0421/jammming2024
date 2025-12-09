@@ -7,7 +7,7 @@ export default function Footer() {
             sx={{
                 position: "fixed",
                 bottom: 36,
-                left: 16,
+                right: 16,
                 zIndex: 9999,
             }}
         >

@@ -18,26 +18,32 @@ const AlbumList = (props: {
     return (
         <Box>
             {props.albums.map((album) => (
-                <Box key={album.id}>
-                    <Grid container>
+                <Box
+                    key={album.id}
+                    sx={{ py: 3 }}
+                >
+                    <Grid
+                        container
+                        spacing={2}
+                    >
 
                         <Grid
                             size={{ xs: 6 }}
                         >
-                            <Typography variant="h6">{album.name}</Typography>
+                            <Typography variant="h5">{album.name}</Typography>
                             <Typography variant="subtitle1"> by {album.artist}</Typography>
-                        </Grid>
-
-                        <Grid size={{ xs: 6 }}>
-
-
-                            <Box>
-                                <img src={album.image} />
-                            </Box>
-                            <Box >
+                            <Box
+                                sx={{
+                                    justifySelf: 'center',
+                                    mt: 4
+                                }}
+                            >
                                 <Button
                                     onClick={() => props.onAlbumClick(album.id)}
-
+                                    sx={{
+                                        bgcolor: '#fff',
+                                        color: '#431448'
+                                    }}
                                 >
                                     View Tracks
                                 </Button>
@@ -45,10 +51,31 @@ const AlbumList = (props: {
 
                             </Box>
                         </Grid>
+
+                        <Grid size={{ xs: 6 }}>
+
+
+                            <Box
+                                component='img'
+                                src={album.image}
+                                alt={album.name}
+                                sx={{
+                                    width: 180,
+                                    height: 180,
+                                    objectFit: "cover",
+                                    borderRadius: 2,
+                                }}
+                            />
+                        </Grid>
                     </Grid>
 
                     <br />
-                    <Divider />
+                    <Divider
+                        sx={{
+                            mt: 3,
+                            bgcolor: '#fff'
+                        }}
+                    />
                 </Box >
 
             ))

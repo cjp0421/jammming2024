@@ -26,7 +26,6 @@ const ArtistList = (props: {
                         container
                         spacing={2}
                     >
-
                         <Grid
                             size={{ xs: 6 }}
                         >
@@ -62,20 +61,17 @@ const ArtistList = (props: {
 
                         <Grid
                             size={{ xs: 6 }}>
-                            <Box>
-                                <Box
-                                    component='img'
-                                    src={artist.image}
-                                    alt={artist.name}
-                                    sx={{
-                                        width: 180,
-                                        height: 180,
-                                        objectFit: "cover",
-                                        borderRadius: 2,
-                                    }}
-                                />
-
-                            </Box>
+                            <Box
+                                component='img'
+                                src={artist.image}
+                                alt={artist.name}
+                                sx={{
+                                    width: 180,
+                                    height: 180,
+                                    objectFit: "cover",
+                                    borderRadius: 2,
+                                }}
+                            />
                         </Grid>
                     </Grid>
 
