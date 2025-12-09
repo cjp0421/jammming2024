@@ -1,0 +1,21 @@
+body {
+   background-image: url('/headphoneBackground.png');
+   background-size: contain;
+   background-attachment: fixed;
+   font-family: "Rubik", sans-serif;
+}
+
+/* ───────────────────────────────
+   Palette Reference
+─────────────────────────────── */
+/*
+Theme Colors
+- #e5c5ba hsl(15, 45%, 81%) pinkish-beige
+- #1e131c almost black purple
+- #d130b3 hsl(311, 64%, 50%) hot pink
+- #1f6c4a dark sage green
+- #9f21a3 hot plum
+- #5e2740 burgundy
+- #431448 dark purplish plum
+- #ffffff   (white)
+*/

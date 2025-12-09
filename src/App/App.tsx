@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
-import styles from './App.module.css'
-import SearchResults from "../components/searchresults/SearchResults"
-import Playlist from '../components/playlist/Playlist';
-import SearchBar from '../components/searchbar/SearchBar';
-import { Track as TrackType } from '../components/tracklist/Tracklist';
+import SearchResults from "../components/SearchResults.tsx";
+import Playlist from '../components/Playlist.tsx';
+import SearchBar from '../components/SearchBar.tsx';
+import { Track as TrackType } from '../components/Tracklist.tsx';
 import { Spotify } from "../util/Spotify/Spotify.ts";
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Grid } from '@mui/material';
+import PageHeading from '../components/PageHeading.tsx';
+import './App.css';
+import Footer from '../components/Footer.tsx';
+import ConnectButton from '../components/ConnectButton.tsx';
 
 interface TrackInterface {
   name: string;
@@ -115,64 +118,43 @@ function App() {
   }
 
   return (
-    <Container sx={{
-      width: "100%"
-    }}>
-      <Box display='flex' justifyContent="space-between" alignItems="center" >
-        <Box sx={{
-          justifyContent: 'flex-start',
-        }}>
-          <Typography variant='h1' sx={{
-            fontSize: '48px',
-            display: 'flex',
-            alignItems: 'center'
-          }}>
-            Ja<span className={styles.highlight}>mmm</span>ing
-          </Typography>
-        </Box>
-        <Box className={styles["header-links"]} sx={{
-          display: 'flex',
-          gap: 1,
-          justifyContent: 'flex-end',
+    <>
+      <PageHeading />
+      <Box
+        sx={{
+          mt: 7,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 5,
+          width: "100%",
+        }}
+      >
+        <ConnectButton
+          isLoggedIn={isLoggedIn}
+          handleLogin={handleLogin}
+        />
 
-        }}>
-          <a
-            className={styles["header-link"]}
-            target="_blank"
-            referrerPolicy="no-referrer"
-            href='https://github.com/cjp0421/jammming2024'>
-            Github</a>
-          <a
-            className={styles["header-link"]}
-            onClick={(e) => e.preventDefault()}
-            href='#'>Portfolio</a>
-          <a
-            className={styles["header-link"]}
-            target="_blank"
-            referrerPolicy="no-referrer"
-            href='https://www.linkedin.com/in/carol-joy-pedersen'>
-            LinkedIn</a>
-        </Box>
-      </Box>
-      <Box display='flex' width='100%'>
-        <Button
-          type="button"
-          onClick={handleLogin}
-          sx={{
-            backgroundColor: 'white',
-            fontSize: 'small',
-            width: 'fit-content',
-            height: 'fit-content'
-          }}
-        >
-          {isLoggedIn ? "Connected to Spotify!" : "Click here to connect to Spotify"}
-        </Button>
-        <Box sx={{ flex: 1 }}>
+        <Box>
           <SearchBar onSearch={search} />
         </Box>
       </Box>
-      <Box display="flex" width="100%" gap={2} alignItems="stretch" sx={{ height: '500px' }}>
-        <Box sx={{ flex: 1, height: '500px' }}>
+
+      <Grid
+        container
+        columnSpacing={4}
+        rowSpacing={6}
+        sx={{
+          justifyContent: 'center',
+          m: 5,
+        }}
+      >
+        <Grid
+          size={{
+            md: 6,
+            xs: 12
+          }}
+        >
           <SearchResults
             userSearchResults={searchResults}
             onAdd={addTrack}
@@ -183,9 +165,14 @@ function App() {
             onArtistClick={fetchArtistAlbums}
             isArtistClickable={true}
           />
-        </Box>
+        </Grid>
         {currentSearchType === 'track' &&
-          <Box sx={{ flex: 1, height: '500px' }}>
+          <Grid
+            size={{
+              md: 6,
+              xs: 12
+            }}
+          >
             <Playlist
               playlistName={playlistName}
               playlistTracks={playlistTracks}
@@ -197,21 +184,12 @@ function App() {
               onArtistClick={fetchArtistAlbums}
               isArtistClickable={true}
             />
-          </Box>
+          </Grid>
         }
-      </Box>
+      </Grid>
 
-      <footer>
-        <a
-          target="_blank"
-          referrerPolicy="no-referrer"
-          href='https://github.com/cjp0421/jammming2024/blob/main/README.md'
-        >
-          About
-        </a>
-      </footer>
-
-    </Container >
+      <Footer />
+    </>
   )
 }
 

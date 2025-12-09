@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Grid, Typography } from "@mui/material";
-import { Album } from "../albumlist/AlbumList";
+import { Album } from "./AlbumList";
 
 export type Artist = {
     id: string;
@@ -18,20 +18,19 @@ const ArtistList = (props: {
     return (
         <Box>
             {props.artists.map((artist) => (
-                <Box key={artist.id} sx={{
-                    display: 'block'
-                }}>
-                    <Grid container spacing={2} sx={{
-                        display: 'inline-flex',
-                        justifyContent: 'space-between',
-
-                    }}>
-
-                        <Grid item xs={6} sx={{
-                            display: 'block',
-                        }}>
-                            <Typography variant="h5" sx={{ width: "100%", ml: 4 }}>{artist.name}</Typography>
-                            <ul style={{ fontSize: 'small', marginTop: '-1px', marginLeft: '15px' }}>
+                <Box
+                    key={artist.id}
+                    sx={{ py: 3 }}
+                >
+                    <Grid
+                        container
+                        spacing={2}
+                    >
+                        <Grid
+                            size={{ xs: 6 }}
+                        >
+                            <Typography variant="h5">{artist.name}</Typography>
+                            <ul>
                                 {
                                     artist.genres?.length > 0 ? (
                                         artist.genres.map((genre: string, index: number) =>
@@ -42,36 +41,43 @@ const ArtistList = (props: {
                                     )
                                 }
                             </ul>
-                        </Grid>
-
-                        <Grid item xs={6} sx={{ textAlign: 'center' }}>
-                            <Box>
-                                <img src={artist.image} style={{ width: '45%' }} />
-
-                            </Box>
-                            <Box sx={{
-                                width: '100%',
-                                justifyContent: 'center'
-                            }}>
+                            <Box
+                                sx={{
+                                    justifySelf: 'center',
+                                    mt: 4
+                                }}
+                            >
                                 <Button
                                     onClick={() => props.onArtistClick(artist.id)}
                                     sx={{
-                                        backgroundColor: 'white',
-
+                                        bgcolor: '#fff',
+                                        color: '#431448'
                                     }}
                                 >
                                     View Albums
                                 </Button>
-
-
                             </Box>
+                        </Grid>
+
+                        <Grid
+                            size={{ xs: 6 }}>
+                            <Box
+                                component='img'
+                                src={artist.image}
+                                alt={artist.name}
+                                sx={{
+                                    width: 180,
+                                    height: 180,
+                                    objectFit: "cover",
+                                    borderRadius: 2,
+                                }}
+                            />
                         </Grid>
                     </Grid>
 
-                    <br />
                     <Divider sx={{
-                        marginBottom: '3%',
-                        width: '100%',
+                        mt: 3,
+                        bgcolor: '#fff'
                     }} />
                 </Box >
 
