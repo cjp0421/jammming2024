@@ -24,6 +24,7 @@ React + TypeScript + Vite + MUI + Netlify
 
 **Future Work**
 - Build comprehensive tests using Vitest
+- Refactor to use React Query for data fetching
 
 **Resources** \
 https://pixabay.com/illustrations/headphones-music-pattern-seamless-6636208/ \
