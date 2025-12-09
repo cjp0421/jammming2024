@@ -140,8 +140,21 @@ function App() {
         </Box>
       </Box>
 
-      <Grid>
-        <Grid>
+      <Grid
+        container
+        columnSpacing={4}
+        rowSpacing={6}
+        sx={{
+          justifyContent: 'center',
+          m: 5,
+        }}
+      >
+        <Grid
+          size={{
+            md: 6,
+            xs: 12
+          }}
+        >
           <SearchResults
             userSearchResults={searchResults}
             onAdd={addTrack}
@@ -154,7 +167,12 @@ function App() {
           />
         </Grid>
         {currentSearchType === 'track' &&
-          <Grid>
+          <Grid
+            size={{
+              md: 6,
+              xs: 12
+            }}
+          >
             <Playlist
               playlistName={playlistName}
               playlistTracks={playlistTracks}

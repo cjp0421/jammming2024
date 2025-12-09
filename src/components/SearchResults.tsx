@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 import Tracklist, { Track } from "./Tracklist";
 import AlbumList, { Album } from "./AlbumList";
 import ArtistList, { Artist } from "./ArtistList";
@@ -53,14 +53,32 @@ function SearchResults({ userSearchResults, onAdd, onRemove, onAlbumClick, searc
     }
 
     return (
-        <Box>
-            <h2 >
-                Search Results
-            </h2>
-            {
-                content
-            }
-        </Box>
+        <Card
+            elevation={8}
+            sx={{
+                bgcolor: '#431448',
+                color: '#fff',
+                borderRadius: 2,
+                border: "1px solid rgba(0,0,0,0.15)",
+                boxShadow: "0px 6px 18px rgba(0,0,0,0.20)",
+            }}
+        >
+            <CardContent>
+                <Typography
+                    variant='h2'
+                    sx={{
+                        fontSize: '2rem',
+                        mb: 3,
+                        textAlign: 'center'
+                    }}
+                >
+                    Search Results
+                </Typography>
+                {
+                    content
+                }
+            </CardContent>
+        </Card >
     );
 }
 

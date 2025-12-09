@@ -1,7 +1,7 @@
 import { Box, Button, TextField } from "@mui/material"
 import { useState } from "react"
 
-function SearchBar({ onSearch }: { onSearch: (term: string, seachType: "track" | "artist" | "album") => void }) {
+function SearchBar({ onSearch }: { onSearch: (term: string, searchType: "track" | "artist" | "album") => void }) {
     const [term, setTerm] = useState("")
     const [searchType, setSearchType] = useState<"track" | "artist" | "album">("track");
 
@@ -32,10 +32,27 @@ function SearchBar({ onSearch }: { onSearch: (term: string, seachType: "track" |
                     placeholder="Enter A Song, Album, or Artist"
                     value={term}
                     onChange={handleTermChange}
-                    color='secondary'
+                    slotProps={{
+                        input: {
+                            sx: {
+                                color: "#ffffff",
+                                "&::placeholder": {
+                                    color: "rgba(255,255,255,0.7)",
+                                }
+                            }
+                        },
+                        root: {
+                            sx: {
+                                backgroundColor: "#1e131c",
+                                borderRadius: 1,
+                            }
+                        }
+                    }}
                     sx={{
-                        backgroundColor: '#fff',
-                        width: { 'md': '320px', 'xs': '245px' }
+                        width: {
+                            md: "320px",
+                            xs: "245px"
+                        },
                     }}
                 />
                 <Box
